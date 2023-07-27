@@ -173,14 +173,29 @@ module.exports = grammar(C, {
       $._class_declaration,
     ),
 
+    class_declaration: $ => seq(
+      $.class_specifier,
+      ';',
+    ),
+
     union_specifier: $ => seq(
       'union',
       $._class_declaration,
     ),
 
+    union_declaration: $ => seq(
+      $.union_specifier,
+      ';',
+    ),
+
     struct_specifier: $ => seq(
       'struct',
       $._class_declaration,
+    ),
+
+    struct_declaration: $ => seq(
+      $.struct_specifier,
+      ';',
     ),
 
     _class_name: $ => prec.right(choice(
