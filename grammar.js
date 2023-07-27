@@ -43,7 +43,6 @@ module.exports = grammar(C, {
 
   conflicts: ($, original) => original.concat([
     [$.template_function, $.template_type],
-    [$.template_function, $.template_type, $._expression],
     [$.template_function, $.template_type, $._expression_not_binary],
     [$.template_function, $.template_type, $.qualified_identifier],
     [$.template_method, $.field_expression],
@@ -51,11 +50,8 @@ module.exports = grammar(C, {
     [$.qualified_type_identifier, $.qualified_identifier],
     [$.dependent_type_identifier, $.dependent_identifier],
     [$.comma_expression, $.initializer_list],
-    [$._expression, $._declarator],
     [$._expression_not_binary, $._declarator],
-    [$._expression, $.structured_binding_declarator],
     [$._expression_not_binary, $.structured_binding_declarator],
-    [$._expression, $._declarator, $._type_specifier],
     [$._expression_not_binary, $._declarator, $._type_specifier],
     [$.parameter_list, $.argument_list],
     [$._type_specifier, $.call_expression],
@@ -66,7 +62,7 @@ module.exports = grammar(C, {
     [$._binary_fold_operator, $._fold_operator],
     [$.expression_statement, $.for_statement],
     [$.init_statement, $.for_statement],
-    [$._typedef_type_specifier, $.sized_type_specifier],
+    [$._function_declarator_seq],
   ]),
 
   inline: ($, original) => original.concat([
@@ -155,6 +151,7 @@ module.exports = grammar(C, {
     // a compound statement. This introduces a shift/reduce conflict that needs to be resolved
     // with an associativity.
     _class_declaration: $ => prec.right(seq(
+      repeat(choice($.attribute_specifier, $.alignas_specifier)),
       optional($.ms_declspec_modifier),
       repeat($.attribute_declaration),
       choice(
@@ -166,6 +163,7 @@ module.exports = grammar(C, {
           field('body', $.field_declaration_list),
         ),
       ),
+      optional($.attribute_specifier),
     )),
 
     class_specifier: $ => seq(
@@ -219,9 +217,17 @@ module.exports = grammar(C, {
 
     virtual: _ => choice('virtual'),
 
+    alignas_specifier: $ => seq(
+      'alignas',
+      '(',
+      choice($._expression, $.primitive_type),
+      ')',
+    ),
+
     _declaration_modifiers: ($, original) => choice(
       original,
       $.virtual,
+      $.alignas_specifier,
     ),
 
     explicit_function_specifier: $ => choice(
@@ -596,6 +602,7 @@ module.exports = grammar(C, {
         $.noexcept,
         $.throw_specifier,
       )),
+      repeat($.attribute_specifier),
       repeat($.attribute_declaration),
       optional($.trailing_return_type),
       optional(choice(
@@ -782,10 +789,7 @@ module.exports = grammar(C, {
       optional('constexpr'),
       field('condition', $.condition_clause),
       field('consequence', $._statement),
-      optional(seq(
-        'else',
-        field('alternative', $._statement),
-      )),
+      optional(field('alternative', $.else_clause)),
     )),
 
     for_range_loop: $ => seq(
@@ -879,6 +883,7 @@ module.exports = grammar(C, {
       $.requires_clause,
       $.template_function,
       $.qualified_identifier,
+      $.alignof_expression,
       $.new_expression,
       $.delete_expression,
       $.lambda_expression,
@@ -951,19 +956,17 @@ module.exports = grammar(C, {
       $._expression,
     ),
 
-    field_expression: ($, original) => choice(
-      original,
-      seq(
-        prec(PREC.FIELD, seq(
-          field('argument', $._expression),
-          choice('.', '->'),
-        )),
-        field('field', choice(
-          $.destructor_name,
-          $.template_method,
-          alias($.dependent_field_identifier, $.dependent_name),
-        )),
-      ),
+    field_expression: $ => seq(
+      prec(PREC.FIELD, seq(
+        field('argument', $._expression),
+        field('operator', choice('.', '.*', '->')),
+      )),
+      field('field', choice(
+        $._field_identifier,
+        $.destructor_name,
+        $.template_method,
+        alias($.dependent_field_identifier, $.dependent_name),
+      )),
     ),
 
     type_requirement: $ => seq('typename', $._class_name),
@@ -1107,6 +1110,13 @@ module.exports = grammar(C, {
       ),
     )),
 
+    alignof_expression: $ => prec.right(PREC.SIZEOF, seq(
+      'alignof',
+      '(',
+      field('type', $.type_descriptor),
+      ')',
+    )),
+
     unary_expression: ($, original) => choice(
       original,
       prec.left(PREC.UNARY, seq(
@@ -1149,7 +1159,7 @@ module.exports = grammar(C, {
     compound_literal_expression: ($, original) => choice(
       original,
       seq(
-        field('type', $._class_name),
+        field('type', choice($._class_name, $.primitive_type)),
         field('value', $.initializer_list),
       ),
     ),
@@ -1187,6 +1197,7 @@ module.exports = grammar(C, {
         $.identifier,
         $.operator_name,
         $.destructor_name,
+        $.pointer_type_declarator,
       )),
     ),
 
@@ -1213,18 +1224,27 @@ module.exports = grammar(C, {
       $.qualified_identifier,
     ),
 
-    assignment_expression: ($, original) => choice(
-      original,
-      prec.right(PREC.ASSIGNMENT, seq(
-        field('left', $._assignment_left_expression),
-        field('operator', choice(
-          'and_eq',
-          'or_eq',
-          'xor_eq',
-        )),
-        field('right', $._expression),
+    assignment_expression: $ => prec.right(PREC.ASSIGNMENT, seq(
+      field('left', $._assignment_left_expression),
+      field('operator', choice(
+        '=',
+        '*=',
+        '/=',
+        '%=',
+        '+=',
+        '-=',
+        '<<=',
+        '>>=',
+        '&=',
+        '^=',
+        '|=',
+        'and_eq',
+        'or_eq',
+        'xor_eq',
       )),
-    ),
+      field('right', choice($._expression, $.initializer_list)),
+    )),
+
 
     operator_name: $ => prec(1, seq(
       'operator',
