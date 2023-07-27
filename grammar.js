@@ -63,6 +63,12 @@ module.exports = grammar(C, {
     [$.expression_statement, $.for_statement],
     [$.init_statement, $.for_statement],
     [$._function_declarator_seq],
+    [$.translation_unit, $._type_specifier],
+    [$.compound_statement, $._type_specifier],
+    [$._type_specifier, $.class_declaration],
+    [$.preproc_ifdef, $._type_specifier],
+    [$.preproc_if, $._type_specifier],
+    [$.preproc_else, $._type_specifier],
   ]),
 
   inline: ($, original) => original.concat([
@@ -80,6 +86,7 @@ module.exports = grammar(C, {
       $.static_assert_declaration,
       $.template_declaration,
       $.template_instantiation,
+      $.class_declaration,
       alias($.constructor_or_destructor_definition, $.function_definition),
       alias($.operator_cast_definition, $.function_definition),
       alias($.operator_cast_declaration, $.declaration),
@@ -95,6 +102,7 @@ module.exports = grammar(C, {
       $.static_assert_declaration,
       $.template_declaration,
       $.template_instantiation,
+      $.class_declaration,
       alias($.constructor_or_destructor_definition, $.function_definition),
       alias($.operator_cast_definition, $.function_definition),
       alias($.operator_cast_declaration, $.declaration),
@@ -126,6 +134,10 @@ module.exports = grammar(C, {
       $.union_specifier,
       $.enum_specifier,
       $.class_specifier,
+      //$.struct_declaration,
+      //$.union_declaration,
+      //$.enum_declaration,
+      //$.class_declaration,
       $.sized_type_specifier,
       $.primitive_type,
       $.template_type,
@@ -265,6 +277,11 @@ module.exports = grammar(C, {
         ),
         field('body', $.enumerator_list),
       ),
+    )),
+
+    enum_declaration: $ => prec.right(seq(
+      $.enum_specifier,
+      ';',
     )),
 
     _enum_base_clause: $ => prec.left(seq(
