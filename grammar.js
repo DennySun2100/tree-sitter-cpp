@@ -289,25 +289,6 @@ module.exports = grammar(C, {
 
     // Declarations
 
-    _typedef_type_specifier: $ => choice(
-      $.macro_type_specifier,
-      alias($._typedef_sized_type_specifier, $.sized_type_specifier),
-      $.struct_specifier,
-      $.union_specifier,
-      $.enum_specifier,
-      $.class_specifier,
-      $.sized_type_specifier,
-      $.primitive_type,
-      $.template_type,
-      $.dependent_type,
-      $.placeholder_type_specifier,
-      $.decltype,
-      prec.right(choice(
-        alias($.qualified_type_identifier, $.qualified_identifier),
-        $._type_identifier,
-      )),
-    ),
-
     template_declaration: $ => seq(
       'template',
       field('parameters', $.template_parameter_list),
