@@ -603,14 +603,13 @@ class J : virtual protected I {};
         (virtual)
         (type_identifier))
       (field_declaration_list)))
-  (class_declaration
-    (class_specifier
-      (type_identifier)
-      (base_class_clause
-        (virtual)
-        (access_specifier)
-        (type_identifier))
-      (field_declaration_list))))
+  (class_specifier
+    (type_identifier)
+    (base_class_clause
+      (virtual)
+      (access_specifier)
+      (type_identifier))
+    (field_declaration_list)))
 
 ================================================================================
 Classes with final virt specifier
@@ -895,17 +894,16 @@ class A final : [[deprecated]] public B {};
           (identifier)))
       (type_identifier)
       (field_declaration_list)))
-  (class_declaration
-    (class_specifier
-      (type_identifier)
-      (virtual_specifier)
-      (base_class_clause
-        (attribute_declaration
-          (attribute
-            (identifier)))
-        (access_specifier)
-        (type_identifier))
-      (field_declaration_list))))
+  (class_specifier
+    (type_identifier)
+    (virtual_specifier)
+    (base_class_clause
+      (attribute_declaration
+        (attribute
+          (identifier)))
+      (access_specifier)
+      (type_identifier))
+    (field_declaration_list)))
 
 ================================================================================
 Operator overload declarations
