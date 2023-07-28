@@ -870,39 +870,42 @@ class A final : [[deprecated]] public B {};
               (string_content)))))
       (type_identifier)
       (field_declaration_list)))
-  (union_specifier
-    (attribute_declaration
-      (attribute
-        (identifier)
-        (identifier)
-        (argument_list
-          (string_literal
-            (string_content)))))
+  (union_declaration
+    (union_specifier
+      (attribute_declaration
+        (attribute
+          (identifier)
+          (identifier)
+          (argument_list
+            (string_literal
+              (string_content)))))
     (type_identifier)
-    (field_declaration_list))
-  (class_specifier
-    (attribute_declaration
-      (attribute
-        (identifier)
-        (identifier)
-        (argument_list
-          (string_literal
-            (string_content)))))
-    (attribute_declaration
-      (attribute
-        (identifier)))
-    (type_identifier)
-    (field_declaration_list))
-  (class_specifier
-    (type_identifier)
-    (virtual_specifier)
-    (base_class_clause
+    (field_declaration_list)))
+  (class_declaration
+    (class_specifier
+      (attribute_declaration
+        (attribute
+          (identifier)
+          (identifier)
+          (argument_list
+            (string_literal
+              (string_content)))))
       (attribute_declaration
         (attribute
           (identifier)))
-      (access_specifier)
-      (type_identifier))
-    (field_declaration_list)))
+      (type_identifier)
+      (field_declaration_list)))
+  (class_declaration
+    (class_specifier
+      (type_identifier)
+      (virtual_specifier)
+      (base_class_clause
+        (attribute_declaration
+          (attribute
+            (identifier)))
+        (access_specifier)
+        (type_identifier))
+      (field_declaration_list))))
 
 ================================================================================
 Operator overload declarations
