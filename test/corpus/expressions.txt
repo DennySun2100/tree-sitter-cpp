@@ -1000,7 +1000,8 @@ void f(T...) {}
         (access_specifier)
         (type_identifier))
       body: (field_declaration_list
-        (access_specifier)
+        (access_declaration
+          (access_specifier))
         (function_definition
           declarator: (function_declarator
             declarator: (identifier)

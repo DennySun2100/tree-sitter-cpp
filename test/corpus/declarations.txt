@@ -271,7 +271,8 @@ struct S {
               (argument_list
                 (number_literal))))
           (compound_statement))
-        (access_specifier)
+        (access_declaration
+          (access_specifier))
         (function_definition
           (primitive_type)
           (function_declarator
@@ -493,7 +494,8 @@ class C {
         (primitive_type)
         (pointer_declarator
           (field_identifier)))
-      (access_specifier)
+      (access_declaration
+        (access_specifier))
       (declaration
         (function_declarator
           (identifier)
@@ -661,7 +663,8 @@ class A {
   (class_specifier
     (type_identifier)
     (field_declaration_list
-      (access_specifier)
+      (access_declaration
+        (access_specifier))
       (field_declaration
         (class_specifier
           (type_identifier)
@@ -1651,8 +1654,9 @@ class Foo {
   (enum_declaration
     (enum_specifier
       (enumerator_list
-        (enumerator
-          (identifier))
+        (enumerator_declaration
+          (enumerator
+            (identifier)))
         (enumerator
           (identifier)))))
   (enum_declaration
@@ -1686,8 +1690,9 @@ class Foo {
         (enum_specifier
           (type_identifier)
           (enumerator_list
-            (enumerator
-              (identifier))
+            (enumerator_declaration
+              (enumerator
+                (identifier)))
             (enumerator
               (identifier))))))))
 
@@ -2142,7 +2147,8 @@ int main() {
   (class_specifier
     (type_identifier)
     (field_declaration_list
-      (access_specifier)
+      (access_declaration
+        (access_specifier))
       (function_definition
         (primitive_type)
         (function_declarator

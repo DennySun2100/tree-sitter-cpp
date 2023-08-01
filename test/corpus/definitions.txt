@@ -140,7 +140,8 @@ class C {
             (argument_list
               (identifier))))
         (compound_statement))
-      (access_specifier)
+      (access_declaration
+        (access_specifier))
       (field_declaration
         (primitive_type)
         (field_identifier)))))
