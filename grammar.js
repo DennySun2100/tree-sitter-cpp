@@ -451,7 +451,7 @@ module.exports = grammar(C, {
       alias($.operator_cast_definition, $.function_definition),
       alias($.operator_cast_declaration, $.declaration),
       $.friend_declaration,
-      seq($.access_specifier, ':'),
+      $.access_declaration,
       $.alias_declaration,
       $.using_declaration,
       $.type_definition,
@@ -553,6 +553,11 @@ module.exports = grammar(C, {
       'public',
       'private',
       'protected',
+    ),
+
+    access_declaration: $ => seq(
+      $.access_specifier,
+      ':',
     ),
 
     _declarator: ($, original) => choice(

@@ -622,6 +622,21 @@
     }
   },
   {
+    "type": "access_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "access_specifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "access_specifier",
     "named": true,
     "fields": {}
@@ -2044,6 +2059,10 @@
             "named": true
           },
           {
+            "type": "gnu_asm_expression",
+            "named": true
+          },
+          {
             "type": "init_declarator",
             "named": true
           },
@@ -2106,6 +2125,10 @@
         },
         {
           "type": "explicit_function_specifier",
+          "named": true
+        },
+        {
+          "type": "ms_call_modifier",
           "named": true
         },
         {
@@ -2466,6 +2489,21 @@
     }
   },
   {
+    "type": "enumerator_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "enumerator",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "enumerator_list",
     "named": true,
     "fields": {},
@@ -2475,6 +2513,10 @@
       "types": [
         {
           "type": "enumerator",
+          "named": true
+        },
+        {
+          "type": "enumerator_declaration",
           "named": true
         }
       ]
@@ -2574,6 +2616,10 @@
           "named": true
         },
         {
+          "type": "ms_call_modifier",
+          "named": true
+        },
+        {
           "type": "ms_declspec_modifier",
           "named": true
         },
@@ -2601,7 +2647,7 @@
       "required": false,
       "types": [
         {
-          "type": "access_specifier",
+          "type": "access_declaration",
           "named": true
         },
         {
@@ -3045,6 +3091,10 @@
         },
         {
           "type": "attribute_specifier",
+          "named": true
+        },
+        {
+          "type": "ms_call_modifier",
           "named": true
         },
         {
@@ -3910,9 +3960,13 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "argument_list",
+          "named": true
+        },
         {
           "type": "identifier",
           "named": true
@@ -4195,6 +4249,10 @@
           "named": true
         },
         {
+          "type": "ms_call_modifier",
+          "named": true
+        },
+        {
           "type": "ms_declspec_modifier",
           "named": true
         },
@@ -4277,6 +4335,10 @@
         },
         {
           "type": "attribute_specifier",
+          "named": true
+        },
+        {
+          "type": "ms_call_modifier",
           "named": true
         },
         {
@@ -4367,6 +4429,10 @@
         },
         {
           "type": "attribute_specifier",
+          "named": true
+        },
+        {
+          "type": "ms_call_modifier",
           "named": true
         },
         {
@@ -4750,7 +4816,7 @@
           "named": true
         },
         {
-          "type": "access_specifier",
+          "type": "access_declaration",
           "named": true
         },
         {
@@ -5001,7 +5067,7 @@
           "named": true
         },
         {
-          "type": "access_specifier",
+          "type": "access_declaration",
           "named": true
         },
         {
@@ -5209,7 +5275,7 @@
           "named": true
         },
         {
-          "type": "access_specifier",
+          "type": "access_declaration",
           "named": true
         },
         {
@@ -5357,7 +5423,7 @@
           "named": true
         },
         {
-          "type": "access_specifier",
+          "type": "access_declaration",
           "named": true
         },
         {
@@ -6260,6 +6326,10 @@
           "named": true
         },
         {
+          "type": "ms_call_modifier",
+          "named": true
+        },
+        {
           "type": "ms_declspec_modifier",
           "named": true
         },
@@ -7046,6 +7116,10 @@
           "named": true
         },
         {
+          "type": "ms_call_modifier",
+          "named": true
+        },
+        {
           "type": "ms_declspec_modifier",
           "named": true
         },
@@ -7457,6 +7531,10 @@
   },
   {
     "type": "__thiscall",
+    "named": false
+  },
+  {
+    "type": "__thread",
     "named": false
   },
   {
