@@ -3004,6 +3004,18 @@
               ]
             },
             {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "ms_call_modifier"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
               "type": "STRING",
               "value": "*"
             },
@@ -3055,6 +3067,18 @@
               ]
             },
             {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "ms_call_modifier"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
               "type": "STRING",
               "value": "*"
             },
@@ -3099,6 +3123,18 @@
                 {
                   "type": "SYMBOL",
                   "name": "ms_based_modifier"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "ms_call_modifier"
                 },
                 {
                   "type": "BLANK"
@@ -3617,6 +3653,10 @@
         },
         {
           "type": "STRING",
+          "value": "__inline"
+        },
+        {
+          "type": "STRING",
           "value": "thread_local"
         },
         {
@@ -3646,6 +3686,10 @@
             {
               "type": "STRING",
               "value": "volatile"
+            },
+            {
+              "type": "STRING",
+              "value": "__volatile"
             },
             {
               "type": "STRING",
@@ -7277,7 +7321,15 @@
         },
         {
           "type": "STRING",
+          "value": "__volatile"
+        },
+        {
+          "type": "STRING",
           "value": "inline"
+        },
+        {
+          "type": "STRING",
+          "value": "__inline"
         },
         {
           "type": "STRING",
@@ -14156,7 +14208,7 @@
   "extras": [
     {
       "type": "PATTERN",
-      "value": "\\s|\\\\\\r?\\n"
+      "value": "\\s|\\\\\\r?\\n|\\f"
     },
     {
       "type": "SYMBOL",
@@ -14327,6 +14379,10 @@
     [
       "preproc_else",
       "_type_specifier"
+    ],
+    [
+      "_declaration_modifiers",
+      "pointer_declarator"
     ]
   ],
   "precedences": [],

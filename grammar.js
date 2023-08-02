@@ -69,6 +69,7 @@ module.exports = grammar(C, {
     [$.preproc_ifdef, $._type_specifier],
     [$.preproc_if, $._type_specifier],
     [$.preproc_else, $._type_specifier],
+    [$._declaration_modifiers, $.pointer_declarator],
   ]),
 
   inline: ($, original) => original.concat([

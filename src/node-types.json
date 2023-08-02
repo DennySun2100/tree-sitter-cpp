@@ -4605,6 +4605,10 @@
           "named": true
         },
         {
+          "type": "ms_call_modifier",
+          "named": true
+        },
+        {
           "type": "ms_pointer_modifier",
           "named": true
         },
@@ -4666,6 +4670,10 @@
       "types": [
         {
           "type": "ms_based_modifier",
+          "named": true
+        },
+        {
+          "type": "ms_call_modifier",
           "named": true
         },
         {
@@ -7518,6 +7526,10 @@
     "named": false
   },
   {
+    "type": "__inline",
+    "named": false
+  },
+  {
     "type": "__leave",
     "named": false
   },
@@ -7547,6 +7559,10 @@
   },
   {
     "type": "__vectorcall",
+    "named": false
+  },
+  {
+    "type": "__volatile",
     "named": false
   },
   {
