@@ -181,7 +181,7 @@ module.exports = grammar(C, {
     ),
 
     class_declaration: $ => seq(
-      $.class_specifier,
+      field('declarator', $.class_specifier),
       ';',
     ),
 
@@ -191,7 +191,7 @@ module.exports = grammar(C, {
     ),
 
     union_declaration: $ => seq(
-      $.union_specifier,
+      field('declarator', $.union_specifier),
       ';',
     ),
 
@@ -201,7 +201,7 @@ module.exports = grammar(C, {
     ),
 
     struct_declaration: $ => seq(
-      $.struct_specifier,
+      field('declarator', $.struct_specifier),
       ';',
     ),
 
@@ -277,7 +277,7 @@ module.exports = grammar(C, {
     )),
 
     enum_declaration: $ => prec.right(seq(
-      $.enum_specifier,
+      field('declarator', $.enum_specifier),
       ';',
     )),
 
@@ -557,7 +557,7 @@ module.exports = grammar(C, {
     ),
 
     access_declaration: $ => seq(
-      $.access_specifier,
+      field('declarator', $.access_specifier),
       ':',
     ),
 

@@ -16,13 +16,13 @@ class __declspec(uuid) u2 {
 
 (translation_unit
   (struct_declaration
-    (struct_specifier
+    declarator: (struct_specifier
       (ms_declspec_modifier
         (identifier))
       name: (type_identifier)
       body: (field_declaration_list)))
   (union_declaration
-    (union_specifier
+    declarator: (union_specifier
       (ms_declspec_modifier
         (identifier))
       name: (type_identifier)
