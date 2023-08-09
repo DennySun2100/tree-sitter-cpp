@@ -6377,6 +6377,10 @@
           {
             "type": "field_identifier",
             "named": true
+          },
+          {
+            "type": "operator_name",
+            "named": true
           }
         ]
       }
