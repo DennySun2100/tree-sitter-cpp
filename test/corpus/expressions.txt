@@ -406,42 +406,18 @@ class A {
 --------------------------------------------------------------------------------
 
 (translation_unit
-  (class_specifier
-    (type_identifier)
-    (field_declaration_list
-      (function_definition
-        (function_declarator
-          (identifier)
-          (parameter_list))
-        (field_initializer_list
-          (field_initializer
-            (qualified_identifier
-              (namespace_identifier)
+  (class_declaration
+    (class_specifier
+      (type_identifier)
+      (field_declaration_list
+        (function_definition
+          (function_declarator
+            (identifier)
+            (parameter_list))
+          (field_initializer_list
+            (field_initializer
               (qualified_identifier
-                (dependent_name
-                  (template_type
-                    (type_identifier)
-                    (template_argument_list
-                      (type_descriptor
-                        (primitive_type)))))
-                (field_identifier)))
-            (argument_list)))
-        (compound_statement))
-      (function_definition
-        (function_declarator
-          (identifier)
-          (parameter_list))
-        (field_initializer_list
-          (field_initializer
-            (qualified_identifier
-              (namespace_identifier)
-              (qualified_identifier
-                (dependent_name
-                  (template_type
-                    (type_identifier)
-                    (template_argument_list
-                      (type_descriptor
-                        (primitive_type)))))
+                (namespace_identifier)
                 (qualified_identifier
                   (dependent_name
                     (template_type
@@ -449,82 +425,15 @@ class A {
                       (template_argument_list
                         (type_descriptor
                           (primitive_type)))))
-                  (field_identifier))))
-            (argument_list)))
-        (compound_statement))
-      (field_declaration
-        (qualified_identifier
-          (template_type
-            (type_identifier)
-            (template_argument_list
-              (type_descriptor
-                (qualified_identifier
-                  (namespace_identifier)
-                  (template_type
-                    (type_identifier)
-                    (template_argument_list
-                      (type_descriptor
-                        (type_identifier))
-                      (type_descriptor
-                        (type_identifier))))))))
-          (type_identifier))
-        (field_identifier))
-      (using_declaration
-        (qualified_identifier
-          (template_type
-            (type_identifier)
-            (template_argument_list
-              (type_descriptor
-                (type_identifier))))
-          (dependent_name
-            (template_function
-              (identifier)
-              (template_argument_list
-                (type_descriptor
-                  (primitive_type)))))))
-      (function_definition
-        (template_type
-          (type_identifier)
-          (template_argument_list
-            (type_descriptor
-              (template_type
-                (type_identifier)
-                (template_argument_list
-                  (type_descriptor
-                    (type_identifier)))))))
-        (function_declarator
-          (field_identifier)
-          (parameter_list))
-        (compound_statement
-          (declaration
-            (qualified_identifier
-              (namespace_identifier)
-              (template_type
-                (type_identifier)
-                (template_argument_list
-                  (type_descriptor
-                    (template_type
-                      (type_identifier)
-                      (template_argument_list
-                        (type_descriptor
-                          (type_identifier))))))))
-            (init_declarator
-              (identifier)
-              (compound_literal_expression
-                (qualified_identifier
-                  (namespace_identifier)
-                  (template_type
-                    (type_identifier)
-                    (template_argument_list
-                      (type_descriptor
-                        (template_type
-                          (type_identifier)
-                          (template_argument_list
-                            (type_descriptor
-                              (type_identifier))))))))
-                (initializer_list))))
-          (declaration
-            (dependent_type
+                  (field_identifier)))
+              (argument_list)))
+          (compound_statement))
+        (function_definition
+          (function_declarator
+            (identifier)
+            (parameter_list))
+          (field_initializer_list
+            (field_initializer
               (qualified_identifier
                 (namespace_identifier)
                 (qualified_identifier
@@ -533,70 +442,162 @@ class A {
                       (type_identifier)
                       (template_argument_list
                         (type_descriptor
-                          (template_type
-                            (type_identifier)
-                            (template_argument_list
-                              (type_descriptor
-                                (type_identifier))))))))
-                  (type_identifier))))
-            (identifier))
-          (declaration
-            (dependent_type
-              (qualified_identifier
-                (namespace_identifier)
-                (qualified_identifier
-                  (dependent_name
-                    (template_type
-                      (type_identifier)
-                      (template_argument_list
-                        (type_descriptor
-                          (template_type
-                            (type_identifier)
-                            (template_argument_list
-                              (type_descriptor
-                                (type_identifier))))))))
+                          (primitive_type)))))
                   (qualified_identifier
                     (dependent_name
                       (template_type
                         (type_identifier)
                         (template_argument_list
                           (type_descriptor
-                            (type_identifier)))))
-                    (type_identifier)))))
-            (identifier))))
-      (field_declaration
-        (dependent_type
+                            (primitive_type)))))
+                    (field_identifier))))
+              (argument_list)))
+          (compound_statement))
+        (field_declaration
           (qualified_identifier
-            (namespace_identifier)
-            (qualified_identifier
-              (dependent_name
+            (template_type
+              (type_identifier)
+              (template_argument_list
+                (type_descriptor
+                  (qualified_identifier
+                    (namespace_identifier)
+                    (template_type
+                      (type_identifier)
+                      (template_argument_list
+                        (type_descriptor
+                          (type_identifier))
+                        (type_descriptor
+                          (type_identifier))))))))
+            (type_identifier))
+          (field_identifier))
+        (using_declaration
+          (qualified_identifier
+            (template_type
+              (type_identifier)
+              (template_argument_list
+                (type_descriptor
+                  (type_identifier))))
+            (dependent_name
+              (template_function
+                (identifier)
+                (template_argument_list
+                  (type_descriptor
+                    (primitive_type)))))))
+        (function_definition
+          (template_type
+            (type_identifier)
+            (template_argument_list
+              (type_descriptor
                 (template_type
                   (type_identifier)
                   (template_argument_list
                     (type_descriptor
-                      (primitive_type)))))
-              (type_identifier))))
-        (field_identifier))
-      (field_declaration
-        (dependent_type
-          (qualified_identifier
-            (namespace_identifier)
-            (qualified_identifier
-              (dependent_name
-                (template_type
-                  (type_identifier)
-                  (template_argument_list
-                    (type_descriptor
-                      (primitive_type)))))
+                      (type_identifier)))))))
+          (function_declarator
+            (field_identifier)
+            (parameter_list))
+          (compound_statement
+            (declaration
               (qualified_identifier
                 (namespace_identifier)
+                (template_type
+                  (type_identifier)
+                  (template_argument_list
+                    (type_descriptor
+                      (template_type
+                        (type_identifier)
+                        (template_argument_list
+                          (type_descriptor
+                            (type_identifier))))))))
+              (init_declarator
+                (identifier)
+                (compound_literal_expression
+                  (qualified_identifier
+                    (namespace_identifier)
+                    (template_type
+                      (type_identifier)
+                      (template_argument_list
+                        (type_descriptor
+                          (template_type
+                            (type_identifier)
+                            (template_argument_list
+                              (type_descriptor
+                                (type_identifier))))))))
+                  (initializer_list))))
+            (declaration
+              (dependent_type
+                (qualified_identifier
+                  (namespace_identifier)
+                  (qualified_identifier
+                    (dependent_name
+                      (template_type
+                        (type_identifier)
+                        (template_argument_list
+                          (type_descriptor
+                            (template_type
+                              (type_identifier)
+                              (template_argument_list
+                                (type_descriptor
+                                  (type_identifier))))))))
+                    (type_identifier))))
+              (identifier))
+            (declaration
+              (dependent_type
+                (qualified_identifier
+                  (namespace_identifier)
+                  (qualified_identifier
+                    (dependent_name
+                      (template_type
+                        (type_identifier)
+                        (template_argument_list
+                          (type_descriptor
+                            (template_type
+                              (type_identifier)
+                              (template_argument_list
+                                (type_descriptor
+                                  (type_identifier))))))))
+                    (qualified_identifier
+                      (dependent_name
+                        (template_type
+                          (type_identifier)
+                          (template_argument_list
+                            (type_descriptor
+                              (type_identifier)))))
+                      (type_identifier)))))
+              (identifier))))
+        (field_declaration
+          (dependent_type
+            (qualified_identifier
+              (namespace_identifier)
+              (qualified_identifier
                 (dependent_name
                   (template_type
                     (type_identifier)
                     (template_argument_list
                       (type_descriptor
-                        (type_identifier)))))))))
-        (field_identifier)))))
+                        (primitive_type)))))
+                (type_identifier))))
+          (field_identifier))
+        (field_declaration
+          (dependent_type
+            (qualified_identifier
+              (namespace_identifier)
+              (qualified_identifier
+                (dependent_name
+                  (template_type
+                    (type_identifier)
+                    (template_argument_list
+                      (type_descriptor
+                        (primitive_type)))))
+                (qualified_identifier
+                  (namespace_identifier)
+                  (dependent_name
+                    (template_type
+                      (type_identifier)
+                      (template_argument_list
+                        (type_descriptor
+                          (type_identifier)))))))))
+          (field_identifier))))))
 
 ================================================================================
 Comma expressions at the start of blocks

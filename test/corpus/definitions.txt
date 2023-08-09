@@ -123,28 +123,29 @@ class C {
 --------------------------------------------------------------------------------
 
 (translation_unit
-  (class_specifier
-    (type_identifier)
-    (field_declaration_list
-      (function_definition
-        (explicit_function_specifier)
-        (function_declarator
-          (identifier)
-          (parameter_list
-            (parameter_declaration
-              (primitive_type)
-              (identifier))))
-        (field_initializer_list
-          (field_initializer
-            (field_identifier)
-            (argument_list
-              (identifier))))
-        (compound_statement))
-      (access_declaration
-        (access_specifier))
-      (field_declaration
-        (primitive_type)
-        (field_identifier)))))
+  (class_declaration
+    (class_specifier
+      (type_identifier)
+      (field_declaration_list
+        (function_definition
+          (explicit_function_specifier)
+          (function_declarator
+            (identifier)
+            (parameter_list
+              (parameter_declaration
+                (primitive_type)
+                (identifier))))
+          (field_initializer_list
+            (field_initializer
+              (field_identifier)
+              (argument_list
+                (identifier))))
+          (compound_statement))
+        (access_declaration
+          (access_specifier))
+        (field_declaration
+          (primitive_type)
+          (field_identifier))))))
 
 ================================================================================
 Explicit constructor declaration
@@ -158,26 +159,27 @@ class C {
 --------------------------------------------------------------------------------
 
 (translation_unit
-  (class_specifier
-    (type_identifier)
-    (field_declaration_list
-      (declaration
-        (explicit_function_specifier)
-        (function_declarator
-          (identifier)
-          (parameter_list
-            (parameter_declaration
-              (primitive_type)
-              (identifier)))))
-      (declaration
-        (explicit_function_specifier
-          (true))
-        (function_declarator
-          (identifier)
-          (parameter_list
-            (parameter_declaration
-              (sized_type_specifier)
-              (identifier))))))))
+  (class_declaration
+    (class_specifier
+      (type_identifier)
+      (field_declaration_list
+        (declaration
+          (explicit_function_specifier)
+          (function_declarator
+            (identifier)
+            (parameter_list
+              (parameter_declaration
+                (primitive_type)
+                (identifier)))))
+        (declaration
+          (explicit_function_specifier
+            (true))
+          (function_declarator
+            (identifier)
+            (parameter_list
+              (parameter_declaration
+                (sized_type_specifier)
+                (identifier)))))))))
 
 ================================================================================
 Default and deleted methods
@@ -194,52 +196,53 @@ class A : public B {
 --------------------------------------------------------------------------------
 
 (translation_unit
-  (class_specifier
-    (type_identifier)
-    (base_class_clause
-      (access_specifier)
-      (type_identifier))
-    (field_declaration_list
-      (function_definition
-        (function_declarator
-          (identifier)
-          (parameter_list))
-        (default_method_clause))
-      (function_definition
-        (function_declarator
-          (identifier)
-          (parameter_list
-            (parameter_declaration
-              (type_identifier)
-              (abstract_reference_declarator))))
-        (delete_method_clause))
-      (function_definition
-        (primitive_type)
-        (function_declarator
-          (field_identifier)
-          (parameter_list))
-        (delete_method_clause))
-      (function_definition
-        (type_identifier)
-        (reference_declarator
+  (class_declaration
+    (class_specifier
+      (type_identifier)
+      (base_class_clause
+        (access_specifier)
+        (type_identifier))
+      (field_declaration_list
+        (function_definition
           (function_declarator
-            (operator_name)
-            (parameter_list
-              (parameter_declaration
-                (type_qualifier)
-                (type_identifier)
-                (abstract_reference_declarator)))))
-        (default_method_clause))
-      (function_definition
-        (type_identifier)
-        (reference_declarator
+            (identifier)
+            (parameter_list))
+          (default_method_clause))
+        (function_definition
           (function_declarator
-            (operator_name)
+            (identifier)
             (parameter_list
               (parameter_declaration
                 (type_identifier)
-                (abstract_reference_declarator)))))
-        (delete_method_clause)))))
+                (abstract_reference_declarator))))
+          (delete_method_clause))
+        (function_definition
+          (primitive_type)
+          (function_declarator
+            (field_identifier)
+            (parameter_list))
+          (delete_method_clause))
+        (function_definition
+          (type_identifier)
+          (reference_declarator
+            (function_declarator
+              (operator_name)
+              (parameter_list
+                (parameter_declaration
+                  (type_qualifier)
+                  (type_identifier)
+                  (abstract_reference_declarator)))))
+          (default_method_clause))
+        (function_definition
+          (type_identifier)
+          (reference_declarator
+            (function_declarator
+              (operator_name)
+              (parameter_list
+                (parameter_declaration
+                  (type_identifier)
+                  (abstract_reference_declarator)))))
+          (delete_method_clause))))))
 
 ================================================================================
 Destructor definitions

@@ -421,49 +421,50 @@ class A {
 --------------------------------------------------------------------------------
 
 (translation_unit
-  (class_specifier
-    (type_identifier)
-    (field_declaration_list
-      (declaration
-        (virtual)
-        (function_declarator
-          (destructor_name
-            (identifier))
-          (parameter_list)))
-      (field_declaration
-        (primitive_type)
-        (function_declarator
-          (field_identifier)
-          (parameter_list)))
-      (function_definition
-        (virtual)
-        (primitive_type)
-        (function_declarator
-          (field_identifier)
-          (parameter_list))
-        (compound_statement))
-      (field_declaration
-        (virtual)
-        (primitive_type)
-        (function_declarator
-          (field_identifier)
-          (parameter_list)))
-      (field_declaration
-        (storage_class_specifier)
-        (virtual)
-        (primitive_type)
-        (function_declarator
-          (field_identifier)
-          (parameter_list)
-          (virtual_specifier)))
-      (field_declaration
-        (virtual)
-        (storage_class_specifier)
-        (primitive_type)
-        (function_declarator
-          (field_identifier)
-          (parameter_list)
-          (virtual_specifier))))))
+  (class_declaration
+    (class_specifier
+      (type_identifier)
+      (field_declaration_list
+        (declaration
+          (virtual)
+          (function_declarator
+            (destructor_name
+              (identifier))
+            (parameter_list)))
+        (field_declaration
+          (primitive_type)
+          (function_declarator
+            (field_identifier)
+            (parameter_list)))
+        (function_definition
+          (virtual)
+          (primitive_type)
+          (function_declarator
+            (field_identifier)
+            (parameter_list))
+          (compound_statement))
+        (field_declaration
+          (virtual)
+          (primitive_type)
+          (function_declarator
+            (field_identifier)
+            (parameter_list)))
+        (field_declaration
+          (storage_class_specifier)
+          (virtual)
+          (primitive_type)
+          (function_declarator
+            (field_identifier)
+            (parameter_list)
+            (virtual_specifier)))
+        (field_declaration
+          (virtual)
+          (storage_class_specifier)
+          (primitive_type)
+          (function_declarator
+            (field_identifier)
+            (parameter_list)
+            (virtual_specifier)))))))
 
 ================================================================================
 Constructor and destructor declarations
@@ -487,76 +488,77 @@ class C {
 --------------------------------------------------------------------------------
 
 (translation_unit
-  (class_specifier
-    (type_identifier)
-    (field_declaration_list
-      (field_declaration
-        (primitive_type)
-        (pointer_declarator
-          (field_identifier)))
-      (access_declaration
-        (access_specifier))
-      (declaration
-        (function_declarator
-          (identifier)
-          (parameter_list)))
-      (declaration
-        (function_declarator
-          (identifier)
-          (parameter_list
-            (parameter_declaration
-              (primitive_type))
-            (parameter_declaration
-              (primitive_type)))))
-      (declaration
-        (storage_class_specifier)
-        (function_declarator
-          (identifier)
-          (parameter_list)))
-      (declaration
-        (explicit_function_specifier)
-        (storage_class_specifier)
-        (function_declarator
-          (identifier)
-          (parameter_list)))
-      (declaration
-        (attribute_declaration
-          (attribute
-            (identifier)))
-        (function_declarator
-          (identifier)
-          (parameter_list)))
-      (template_declaration
-        (template_parameter_list
-          (type_parameter_declaration
-            (type_identifier)))
+  (class_declaration
+    (class_specifier
+      (type_identifier)
+      (field_declaration_list
+        (field_declaration
+          (primitive_type)
+          (pointer_declarator
+            (field_identifier)))
+        (access_declaration
+          (access_specifier))
+        (declaration
+          (function_declarator
+            (identifier)
+            (parameter_list)))
         (declaration
           (function_declarator
             (identifier)
             (parameter_list
               (parameter_declaration
-                (type_identifier)
-                (identifier))))))
-      (function_definition
-        (function_declarator
-          (identifier)
-          (parameter_list))
-        (field_initializer_list
-          (field_initializer
-            (qualified_identifier
-              (namespace_identifier)
-              (template_method
-                (field_identifier)
-                (template_argument_list
-                  (type_descriptor
-                    (type_identifier)))))
-            (argument_list)))
-        (compound_statement))
-      (declaration
-        (function_declarator
-          (destructor_name
-            (identifier))
-          (parameter_list))))))
+                (primitive_type))
+              (parameter_declaration
+                (primitive_type)))))
+        (declaration
+          (storage_class_specifier)
+          (function_declarator
+            (identifier)
+            (parameter_list)))
+        (declaration
+          (explicit_function_specifier)
+          (storage_class_specifier)
+          (function_declarator
+            (identifier)
+            (parameter_list)))
+        (declaration
+          (attribute_declaration
+            (attribute
+              (identifier)))
+          (function_declarator
+            (identifier)
+            (parameter_list)))
+        (template_declaration
+          (template_parameter_list
+            (type_parameter_declaration
+              (type_identifier)))
+          (declaration
+            (function_declarator
+              (identifier)
+              (parameter_list
+                (parameter_declaration
+                  (type_identifier)
+                  (identifier))))))
+        (function_definition
+          (function_declarator
+            (identifier)
+            (parameter_list))
+          (field_initializer_list
+            (field_initializer
+              (qualified_identifier
+                (namespace_identifier)
+                (template_method
+                  (field_identifier)
+                  (template_argument_list
+                    (type_descriptor
+                      (type_identifier)))))
+              (argument_list)))
+          (compound_statement))
+        (declaration
+          (function_declarator
+            (destructor_name
+              (identifier))
+            (parameter_list)))))))
 
 ================================================================================
 Classes with inheritance
@@ -571,12 +573,13 @@ class J : virtual protected I {};
 --------------------------------------------------------------------------------
 
 (translation_unit
-  (class_specifier
-    (type_identifier)
-    (base_class_clause
-      (access_specifier)
-      (type_identifier))
-    (field_declaration_list))
+  (class_declaration
+    (class_specifier
+      (type_identifier)
+      (base_class_clause
+        (access_specifier)
+        (type_identifier))
+      (field_declaration_list)))
   (class_declaration
     (class_specifier
       (type_identifier)
@@ -605,13 +608,14 @@ class J : virtual protected I {};
         (virtual)
         (type_identifier))
       (field_declaration_list)))
-  (class_specifier
-    (type_identifier)
-    (base_class_clause
-      (virtual)
-      (access_specifier)
-      (type_identifier))
-    (field_declaration_list)))
+  (class_declaration
+    (class_specifier
+      (type_identifier)
+      (base_class_clause
+        (virtual)
+        (access_specifier)
+        (type_identifier))
+      (field_declaration_list))))
 
 ================================================================================
 Classes with final virt specifier
@@ -627,13 +631,14 @@ struct D final {};
 --------------------------------------------------------------------------------
 
 (translation_unit
-  (class_specifier
-    (type_identifier)
-    (virtual_specifier)
-    (base_class_clause
-      (access_specifier)
-      (type_identifier))
-    (field_declaration_list))
+  (class_declaration
+    (class_specifier
+      (type_identifier)
+      (virtual_specifier)
+      (base_class_clause
+        (access_specifier)
+        (type_identifier))
+      (field_declaration_list)))
   (class_declaration
     (class_specifier
       (type_identifier)
@@ -660,24 +665,25 @@ class A {
 --------------------------------------------------------------------------------
 
 (translation_unit
-  (class_specifier
-    (type_identifier)
-    (field_declaration_list
-      (access_declaration
-        (access_specifier))
-      (field_declaration
-        (class_specifier
-          (type_identifier)
-          (base_class_clause
-            (access_specifier)
+  (class_declaration
+    (class_specifier
+      (type_identifier)
+      (field_declaration_list
+        (access_declaration
+          (access_specifier))
+        (field_declaration
+          (class_specifier
             (type_identifier)
-            (access_specifier)
-            (type_identifier))
-          (field_declaration_list)))
-      (field_declaration
-        (type_identifier)
-        (field_identifier)
-        (field_identifier)))))
+            (base_class_clause
+              (access_specifier)
+              (type_identifier)
+              (access_specifier)
+              (type_identifier))
+            (field_declaration_list)))
+        (field_declaration
+          (type_identifier)
+          (field_identifier)
+          (field_identifier))))))
 
 ================================================================================
 Friend declarations
@@ -897,16 +903,17 @@ class A final : [[deprecated]] public B {};
           (identifier)))
       (type_identifier)
       (field_declaration_list)))
-  (class_specifier
-    (type_identifier)
-    (virtual_specifier)
-    (base_class_clause
-      (attribute_declaration
-        (attribute
-          (identifier)))
-      (access_specifier)
-      (type_identifier))
-    (field_declaration_list)))
+  (class_declaration
+    (class_specifier
+      (type_identifier)
+      (virtual_specifier)
+      (base_class_clause
+        (attribute_declaration
+          (attribute
+            (identifier)))
+        (access_specifier)
+        (type_identifier))
+      (field_declaration_list))))
 
 ================================================================================
 Operator overload declarations
@@ -1236,46 +1243,47 @@ class Person {
 --------------------------------------------------------------------------------
 
 (translation_unit
-  (class_specifier
-    (type_identifier)
-    (field_declaration_list
-      (function_definition
-        (function_declarator
-          (identifier)
-          (parameter_list))
-        (compound_statement
-          (expression_statement
-            (call_expression
-              (field_expression
-                (this)
-                (template_method
-                  (field_identifier)
-                  (template_argument_list
-                    (type_descriptor
-                      (primitive_type)))))
-              (argument_list)))))
-      (template_declaration
-        (template_parameter_list
-          (type_parameter_declaration
-            (type_identifier)))
+  (class_declaration
+    (class_specifier
+      (type_identifier)
+      (field_declaration_list
         (function_definition
-          (primitive_type)
           (function_declarator
             (identifier)
             (parameter_list))
-          (compound_statement)))
-      (template_declaration
-        (template_parameter_list)
-        (function_definition
-          (primitive_type)
-          (function_declarator
-            (template_function
+          (compound_statement
+            (expression_statement
+              (call_expression
+                (field_expression
+                  (this)
+                  (template_method
+                    (field_identifier)
+                    (template_argument_list
+                      (type_descriptor
+                        (primitive_type)))))
+                (argument_list)))))
+        (template_declaration
+          (template_parameter_list
+            (type_parameter_declaration
+              (type_identifier)))
+          (function_definition
+            (primitive_type)
+            (function_declarator
               (identifier)
-              (template_argument_list
-                (type_descriptor
-                  (primitive_type))))
-            (parameter_list))
-          (compound_statement))))))
+              (parameter_list))
+            (compound_statement)))
+        (template_declaration
+          (template_parameter_list)
+          (function_definition
+            (primitive_type)
+            (function_declarator
+              (template_function
+                (identifier)
+                (template_argument_list
+                  (type_descriptor
+                    (primitive_type))))
+              (parameter_list))
+            (compound_statement)))))))
 
 ================================================================================
 Templates with optional type parameters
@@ -1683,18 +1691,19 @@ class Foo {
       (type_identifier)
       (type_identifier)
       (enumerator_list)))
-  (class_specifier
-    (type_identifier)
-    (field_declaration_list
-      (field_declaration
-        (enum_specifier
-          (type_identifier)
-          (enumerator_list
-            (enumerator_declaration
+  (class_declaration
+    (class_specifier
+      (type_identifier)
+      (field_declaration_list
+        (field_declaration
+          (enum_specifier
+            (type_identifier)
+            (enumerator_list
+              (enumerator_declaration
+                (enumerator
+                  (identifier)))
               (enumerator
-                (identifier)))
-            (enumerator
-              (identifier))))))))
+                (identifier)))))))))
 
 ================================================================================
 static_assert declarations
@@ -1709,13 +1718,14 @@ static_assert(true, R"FOO(string)FOO");
 --------------------------------------------------------------------------------
 
 (translation_unit
-  (class_specifier
-    name: (type_identifier)
-    body: (field_declaration_list
-      (static_assert_declaration
-        condition: (true)
-        message: (string_literal
-          (string_content)))))
+  (class_declaration
+    declarator: (class_specifier
+      name: (type_identifier)
+      body: (field_declaration_list
+        (static_assert_declaration
+          condition: (true)
+          message: (string_literal
+            (string_content))))))
   (function_definition
     type: (primitive_type)
     declarator: (function_declarator
@@ -1855,78 +1865,79 @@ class A {
 --------------------------------------------------------------------------------
 
 (translation_unit
-  (class_specifier
-    (type_identifier)
-    (field_declaration_list
-      (function_definition
-        (operator_cast
-          (primitive_type)
-          (abstract_function_declarator
-            (parameter_list)
-            (type_qualifier)))
-        (compound_statement))
-      (declaration
-        (explicit_function_specifier)
-        (operator_cast
-          (primitive_type)
-          (abstract_pointer_declarator
+  (class_declaration
+    (class_specifier
+      (type_identifier)
+      (field_declaration_list
+        (function_definition
+          (operator_cast
+            (primitive_type)
             (abstract_function_declarator
               (parameter_list)
-              (type_qualifier)))))
-      (declaration
-        (operator_cast
-          (type_identifier)
-          (abstract_pointer_declarator
-            (abstract_function_declarator
-              (parameter_list)))))
-      (declaration
-        (operator_cast
-          (type_identifier)
-          (abstract_reference_declarator
-            (abstract_function_declarator
-              (parameter_list)))))
-      (declaration
-        (operator_cast
-          (placeholder_type_specifier
-            (auto))
-          (abstract_function_declarator
-            (parameter_list)
-            (type_qualifier))))
-      (declaration
-        (virtual)
-        (operator_cast
-          (type_identifier)
-          (abstract_function_declarator
-            (parameter_list)))
-        (number_literal))
-      (declaration
-        (qualified_identifier
-          (namespace_identifier)
-          (qualified_identifier
-            (namespace_identifier)
-            (operator_cast
-              (type_identifier)
+              (type_qualifier)))
+          (compound_statement))
+        (declaration
+          (explicit_function_specifier)
+          (operator_cast
+            (primitive_type)
+            (abstract_pointer_declarator
               (abstract_function_declarator
-                (parameter_list))))))
-      (template_declaration
-        (template_parameter_list
-          (type_parameter_declaration
-            (type_identifier)))
+                (parameter_list)
+                (type_qualifier)))))
         (declaration
           (operator_cast
             (type_identifier)
             (abstract_pointer_declarator
               (abstract_function_declarator
-                (parameter_list))))))
-      (declaration
-        (attribute_declaration
-          (attribute
-            (identifier)))
-        (operator_cast
-          (primitive_type)
-          (abstract_pointer_declarator
+                (parameter_list)))))
+        (declaration
+          (operator_cast
+            (type_identifier)
+            (abstract_reference_declarator
+              (abstract_function_declarator
+                (parameter_list)))))
+        (declaration
+          (operator_cast
+            (placeholder_type_specifier
+              (auto))
             (abstract_function_declarator
-              (parameter_list))))))))
+              (parameter_list)
+              (type_qualifier))))
+        (declaration
+          (virtual)
+          (operator_cast
+            (type_identifier)
+            (abstract_function_declarator
+              (parameter_list)))
+          (number_literal))
+        (declaration
+          (qualified_identifier
+            (namespace_identifier)
+            (qualified_identifier
+              (namespace_identifier)
+              (operator_cast
+                (type_identifier)
+                (abstract_function_declarator
+                  (parameter_list))))))
+        (template_declaration
+          (template_parameter_list
+            (type_parameter_declaration
+              (type_identifier)))
+          (declaration
+            (operator_cast
+              (type_identifier)
+              (abstract_pointer_declarator
+                (abstract_function_declarator
+                  (parameter_list))))))
+        (declaration
+          (attribute_declaration
+            (attribute
+              (identifier)))
+          (operator_cast
+            (primitive_type)
+            (abstract_pointer_declarator
+              (abstract_function_declarator
+                (parameter_list)))))))))
 
 ================================================================================
 Function declarations
@@ -2006,37 +2017,38 @@ void C::f() & noexcept {}
 --------------------------------------------------------------------------------
 
 (translation_unit
-  (class_specifier
-    (type_identifier)
-    (field_declaration_list
-      (field_declaration
-        (primitive_type)
-        (function_declarator
-          (field_identifier)
-          (parameter_list)
-          (ref_qualifier)))
-      (field_declaration
-        (primitive_type)
-        (function_declarator
-          (field_identifier)
-          (parameter_list)
-          (ref_qualifier)
-          (noexcept)))
-      (function_definition
-        (primitive_type)
-        (function_declarator
-          (field_identifier)
-          (parameter_list)
-          (ref_qualifier))
-        (compound_statement))
-      (function_definition
-        (primitive_type)
-        (function_declarator
-          (field_identifier)
-          (parameter_list)
-          (ref_qualifier)
-          (noexcept))
-        (compound_statement))))
+  (class_declaration
+    (class_specifier
+      (type_identifier)
+      (field_declaration_list
+        (field_declaration
+          (primitive_type)
+          (function_declarator
+            (field_identifier)
+            (parameter_list)
+            (ref_qualifier)))
+        (field_declaration
+          (primitive_type)
+          (function_declarator
+            (field_identifier)
+            (parameter_list)
+            (ref_qualifier)
+            (noexcept)))
+        (function_definition
+          (primitive_type)
+          (function_declarator
+            (field_identifier)
+            (parameter_list)
+            (ref_qualifier))
+          (compound_statement))
+        (function_definition
+          (primitive_type)
+          (function_declarator
+            (field_identifier)
+            (parameter_list)
+            (ref_qualifier)
+            (noexcept))
+          (compound_statement)))))
   (declaration
     (primitive_type)
     (function_declarator
@@ -2144,24 +2156,25 @@ int main() {
 --------------------------------------------------------------------------------
 
 (translation_unit
-  (class_specifier
-    (type_identifier)
-    (field_declaration_list
-      (access_declaration
-        (access_specifier))
-      (function_definition
-        (primitive_type)
-        (function_declarator
-          (field_identifier)
-          (parameter_list
-            (parameter_declaration
-              (primitive_type)
-              (identifier))))
-        (compound_statement
-          (return_statement
-            (binary_expression
-              (identifier)
-              (number_literal)))))))
+  (class_declaration
+    (class_specifier
+      (type_identifier)
+      (field_declaration_list
+        (access_declaration
+          (access_specifier))
+        (function_definition
+          (primitive_type)
+          (function_declarator
+            (field_identifier)
+            (parameter_list
+              (parameter_declaration
+                (primitive_type)
+                (identifier))))
+          (compound_statement
+            (return_statement
+              (binary_expression
+                (identifier)
+                (number_literal))))))))
   (function_definition
     (primitive_type)
     (function_declarator

@@ -4118,9 +4118,13 @@
         ]
       },
       "declarator": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
+          {
+            "type": "abstract_pointer_declarator",
+            "named": true
+          },
           {
             "type": "new_declarator",
             "named": true
@@ -4138,11 +4142,15 @@
         ]
       },
       "type": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
           {
             "type": "_type_specifier",
+            "named": true
+          },
+          {
+            "type": "abstract_pointer_declarator",
             "named": true
           }
         ]
@@ -4478,7 +4486,7 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
@@ -4491,6 +4499,10 @@
         },
         {
           "type": "_type_declarator",
+          "named": true
+        },
+        {
+          "type": "ms_declspec_modifier",
           "named": true
         }
       ]
@@ -6738,6 +6750,10 @@
       "required": false,
       "types": [
         {
+          "type": "attribute_specifier",
+          "named": true
+        },
+        {
           "type": "type_qualifier",
           "named": true
         }
@@ -7498,6 +7514,10 @@
     "named": false
   },
   {
+    "type": "__extension__",
+    "named": false
+  },
+  {
     "type": "__fastcall",
     "named": false
   },
@@ -7506,7 +7526,15 @@
     "named": false
   },
   {
+    "type": "__forceinline",
+    "named": false
+  },
+  {
     "type": "__inline",
+    "named": false
+  },
+  {
+    "type": "__inline__",
     "named": false
   },
   {

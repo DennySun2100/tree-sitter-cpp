@@ -70,6 +70,7 @@ module.exports = grammar(C, {
     [$.preproc_if, $._type_specifier],
     [$.preproc_else, $._type_specifier],
     [$._declaration_modifiers, $.pointer_declarator],
+    [$._new_expression_type_specifier],
   ]),
 
   inline: ($, original) => original.concat([
@@ -156,6 +157,15 @@ module.exports = grammar(C, {
 
     type_descriptor: (_, original) => prec.right(original),
 
+    _new_expression_type_specifier: $ => seq(
+      field('type', $._type_specifier),
+      field('declarator', repeat(alias($._new_expression_pointer_declarator, $.abstract_pointer_declarator))),
+    ),
+
+    _new_expression_pointer_declarator: $ => prec.dynamic(1, prec.right(seq('*',
+    repeat($.type_qualifier),
+  ))),
+
     // When used in a trailing return type, these specifiers can now occur immediately before
     // a compound statement. This introduces a shift/reduce conflict that needs to be resolved
     // with an associativity.
@@ -180,10 +190,10 @@ module.exports = grammar(C, {
       $._class_declaration,
     ),
 
-    class_declaration: $ => seq(
+    class_declaration: $ => prec(1, seq(
       field('declarator', $.class_specifier),
       ';',
-    ),
+    )),
 
     union_specifier: $ => seq(
       'union',
@@ -934,7 +944,7 @@ module.exports = grammar(C, {
       optional('::'),
       'new',
       field('placement', optional($.argument_list)),
-      field('type', $._type_specifier),
+      field('type', $._new_expression_type_specifier),
       field('declarator', optional($.new_declarator)),
       field('arguments', optional(choice(
         $.argument_list,

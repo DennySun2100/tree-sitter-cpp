@@ -27,8 +27,9 @@ class __declspec(uuid) u2 {
         (identifier))
       name: (type_identifier)
       body: (field_declaration_list)))
-  (class_specifier
-    (ms_declspec_modifier
-      (identifier))
-    name: (type_identifier)
-    body: (field_declaration_list)))
+  (class_declaration
+    declarator: (class_specifier
+      (ms_declspec_modifier
+        (identifier))
+      name: (type_identifier)
+      body: (field_declaration_list))))
