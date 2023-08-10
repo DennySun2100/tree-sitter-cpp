@@ -163,8 +163,8 @@ module.exports = grammar(C, {
     ),
 
     _new_expression_pointer_declarator: $ => prec.dynamic(1, prec.right(seq('*',
-    repeat($.type_qualifier),
-  ))),
+      repeat($.type_qualifier),
+    ))),
 
     // When used in a trailing return type, these specifiers can now occur immediately before
     // a compound statement. This introduces a shift/reduce conflict that needs to be resolved
