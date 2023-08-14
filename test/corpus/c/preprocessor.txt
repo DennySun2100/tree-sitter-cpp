@@ -343,18 +343,19 @@ struct S {
 --------------------------------------------------------------------------------
 
 (translation_unit
-  (struct_specifier
-    (type_identifier)
-    (field_declaration_list
-      (preproc_ifdef
-        (identifier)
-        (field_declaration
-          (type_identifier)
-          (field_identifier))
-        (preproc_else
+  (struct_declaration
+    (struct_specifier
+      (type_identifier)
+      (field_declaration_list
+        (preproc_ifdef
+          (identifier)
           (field_declaration
-            (primitive_type)
-            (field_identifier)))))))
+            (type_identifier)
+            (field_identifier))
+          (preproc_else
+            (field_declaration
+              (primitive_type)
+              (field_identifier))))))))
 
 ================================================================================
 Unknown preprocessor directives

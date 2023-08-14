@@ -65,13 +65,14 @@ module.exports = grammar(C, {
     [$._declaration_specifiers, $._constructor_specifiers],
     [$._binary_fold_operator, $._fold_operator],
     [$._function_declarator_seq],
-    [$.translation_unit, $._type_specifier],
-    [$.compound_statement, $._type_specifier],
-    [$._type_specifier, $.class_declaration],
-    [$.preproc_ifdef, $._type_specifier],
-    [$.preproc_if, $._type_specifier],
-    [$.preproc_else, $._type_specifier],
+    [$._delete_expression_operator],
+    [$.delete_expression, $._expression_not_binary],
+    [$.delete_expression, $.operator_function_call],
+    [$.operator_function_call, $._expression_not_binary],
     [$._declaration_modifiers, $.pointer_declarator],
+    [$._type_specifier, $.enum_declaration],
+    [$._type_specifier, $.struct_declaration],
+    [$._type_specifier, $.union_declaration],
     [$._new_expression_type_specifier],
   ],
 
@@ -294,6 +295,7 @@ module.exports = grammar(C, {
         ),
         field('body', $.enumerator_list),
       ),
+      optional($.attribute_specifier),
     )),
 
     enum_declaration: $ => prec.right(seq(
@@ -473,6 +475,7 @@ module.exports = grammar(C, {
       alias($.operator_cast_declaration, $.declaration),
       $.friend_declaration,
       $.access_declaration,
+      //seq($.access_specifier, ':'), This is what the upstream tree-sitter has now, will be removed after we merge the changes back to upstream repo.
       $.alias_declaration,
       $.using_declaration,
       $.type_definition,
@@ -481,6 +484,7 @@ module.exports = grammar(C, {
 
     field_declaration: $ => seq(
       $._declaration_specifiers,
+      repeat($._scope_resolution),
       commaSep(seq(
         field('declarator', $._field_declarator),
         optional(choice(
@@ -699,6 +703,12 @@ module.exports = grammar(C, {
     template_function: $ => seq(
       field('name', $.identifier),
       field('arguments', $.template_argument_list),
+    ),
+
+    operator_function_call: $ => seq(
+      choice($.identifier, $.this),
+      choice('->', '.'),
+      $.operator_name,
     ),
 
     template_argument_list: $ => seq(
@@ -924,6 +934,7 @@ module.exports = grammar(C, {
       $.requires_expression,
       $.requires_clause,
       $.template_function,
+      $.operator_function_call,
       $.qualified_identifier,
       $.new_expression,
       $.delete_expression,
@@ -995,9 +1006,14 @@ module.exports = grammar(C, {
 
     delete_expression: $ => seq(
       optional('::'),
+      $._delete_expression_operator,
+      // Boost the precedence of the cast_expression to avoid ambiguity with the call_expression
+      choice(prec.dynamic(20, $.cast_expression), $._expression),
+    ),
+
+    _delete_expression_operator: $ => seq(
       'delete',
       optional(seq('[', ']')),
-      $._expression,
     ),
 
     field_expression: $ => seq(

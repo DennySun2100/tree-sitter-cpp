@@ -12,16 +12,18 @@ union __declspec(noinline) u2 {
 ---
 
 (translation_unit
-  (struct_specifier
-    (ms_declspec_modifier
-      (identifier))
-    name: (type_identifier)
-    body: (field_declaration_list))
-  (union_specifier
-    (ms_declspec_modifier
-      (identifier))
-    name: (type_identifier)
-    body: (field_declaration_list)))
+  (struct_declaration
+    declarator: (struct_specifier
+      (ms_declspec_modifier
+        (identifier))
+      name: (type_identifier)
+      body: (field_declaration_list)))
+  (union_declaration
+    declarator: (union_specifier
+      (ms_declspec_modifier
+        (identifier))
+      name: (type_identifier)
+      body: (field_declaration_list))))
 
 ================================
 pointers
@@ -49,33 +51,34 @@ void MyFunction(char * __uptr myValue);
 ---
 
 (translation_unit
-  (struct_specifier
-    name: (type_identifier)
-    body: (field_declaration_list
-      (field_declaration
-        type: (primitive_type)
-        declarator: (pointer_declarator
-          (ms_pointer_modifier
-            (ms_restrict_modifier))
-          declarator: (field_identifier)))
-      (field_declaration
-        type: (primitive_type)
-        declarator: (pointer_declarator
-          (ms_pointer_modifier
-            (ms_signed_ptr_modifier))
-          declarator: (field_identifier)))
-      (field_declaration
-        type: (primitive_type)
-        declarator: (pointer_declarator
-          (ms_pointer_modifier
-            (ms_unsigned_ptr_modifier))
-          declarator: (field_identifier)))
-      (field_declaration
-        type: (primitive_type)
-        declarator: (pointer_declarator
-          (ms_pointer_modifier
-            (ms_unaligned_ptr_modifier))
-          declarator: (field_identifier)))))
+ (struct_declaration
+    declarator: (struct_specifier
+      name: (type_identifier)
+      body: (field_declaration_list
+        (field_declaration
+          type: (primitive_type)
+          declarator: (pointer_declarator
+            (ms_pointer_modifier
+              (ms_restrict_modifier))
+            declarator: (field_identifier)))
+        (field_declaration
+          type: (primitive_type)
+          declarator: (pointer_declarator
+            (ms_pointer_modifier
+              (ms_signed_ptr_modifier))
+            declarator: (field_identifier)))
+        (field_declaration
+          type: (primitive_type)
+          declarator: (pointer_declarator
+            (ms_pointer_modifier
+              (ms_unsigned_ptr_modifier))
+            declarator: (field_identifier)))
+        (field_declaration
+          type: (primitive_type)
+          declarator: (pointer_declarator
+            (ms_pointer_modifier
+              (ms_unaligned_ptr_modifier))
+            declarator: (field_identifier))))))
   (function_definition
     type: (primitive_type)
     declarator: (function_declarator

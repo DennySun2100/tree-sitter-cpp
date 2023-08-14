@@ -16,30 +16,33 @@ struct s3 {
 --------------------------------------------------------------------------------
 
 (translation_unit
-  (struct_specifier
-    name: (type_identifier))
-  (struct_specifier
-    name: (type_identifier)
-    body: (field_declaration_list
-      (field_declaration
-        type: (primitive_type)
-        declarator: (field_identifier))
-      (field_declaration
-        type: (primitive_type)
-        declarator: (field_identifier)
-        (bitfield_clause
-          (number_literal)))))
-  (struct_specifier
-    name: (type_identifier)
-    body: (field_declaration_list
-      (field_declaration
-        type: (primitive_type)
-        declarator: (field_identifier)
-        (bitfield_clause
-          (number_literal))
-        declarator: (field_identifier)
-        (bitfield_clause
-          (number_literal))))))
+  (struct_declaration
+    declarator: (struct_specifier
+      name: (type_identifier)))
+  (struct_declaration
+    declarator: (struct_specifier
+      name: (type_identifier)
+      body: (field_declaration_list
+        (field_declaration
+          type: (primitive_type)
+          declarator: (field_identifier))
+        (field_declaration
+          type: (primitive_type)
+          declarator: (field_identifier)
+          (bitfield_clause
+            (number_literal))))))
+  (struct_declaration
+    declarator: (struct_specifier
+      name: (type_identifier)
+      body: (field_declaration_list
+        (field_declaration
+          type: (primitive_type)
+          declarator: (field_identifier)
+          (bitfield_clause
+            (number_literal))
+          declarator: (field_identifier)
+          (bitfield_clause
+            (number_literal)))))))
 
 ================================================================================
 Union declarations
@@ -55,17 +58,19 @@ union s2 {
 --------------------------------------------------------------------------------
 
 (translation_unit
-  (union_specifier
-    name: (type_identifier))
-  (union_specifier
-    name: (type_identifier)
-    body: (field_declaration_list
-      (field_declaration
-        type: (primitive_type)
-        declarator: (field_identifier))
-      (field_declaration
-        type: (primitive_type)
-        declarator: (field_identifier)))))
+  (union_declaration
+    declarator: (union_specifier
+      name: (type_identifier)))
+  (union_declaration
+    declarator: (union_specifier
+      name: (type_identifier)
+      body: (field_declaration_list
+        (field_declaration
+          type: (primitive_type)
+          declarator: (field_identifier))
+        (field_declaration
+          type: (primitive_type)
+          declarator: (field_identifier))))))
 
 ================================================================================
 Enum declarations
@@ -90,29 +95,37 @@ enum e4: int {
 --------------------------------------------------------------------------------
 
 (translation_unit
-  (enum_specifier
-    name: (type_identifier))
-  (enum_specifier
-    name: (type_identifier)
-    body: (enumerator_list
-      (enumerator
-        name: (identifier))
-      (enumerator
-        name: (identifier)
-        value: (number_literal))
-      (enumerator
-        name: (identifier))))
-  (enum_specifier
-    name: (type_identifier)
-    body: (enumerator_list
-      (enumerator
-        name: (identifier))))
-  (enum_specifier
-    name: (type_identifier)
-    base: (type_identifier)
-    body: (enumerator_list
-      (enumerator
-        name: (identifier)))))
+  (enum_declaration
+    declarator: (enum_specifier
+      name: (type_identifier)))
+  (enum_declaration
+    declarator: (enum_specifier
+      name: (type_identifier)
+      body: (enumerator_list
+        (enumerator_declaration
+          declarator: (enumerator
+            name: (identifier)))
+        (enumerator_declaration
+          declarator: (enumerator
+            name: (identifier)
+            value: (number_literal)))
+        (enumerator
+          name: (identifier)))))
+  (enum_declaration
+     declarator: (enum_specifier
+      name: (type_identifier)
+      body: (enumerator_list
+        (enumerator_declaration
+          declarator: (enumerator
+            name: (identifier))))))
+  (enum_declaration
+    declarator: (enum_specifier
+      name: (type_identifier)
+      base: (type_identifier)
+      body: (enumerator_list
+        (enumerator_declaration
+          declarator: (enumerator
+            name: (identifier)))))))
 
 ================================================================================
 Struct declarations containing preprocessor directives
@@ -127,20 +140,21 @@ struct s {
 --------------------------------------------------------------------------------
 
 (translation_unit
-  (struct_specifier
-    (type_identifier)
-    (field_declaration_list
-      (preproc_def
-        (identifier)
-        (preproc_arg))
-      (field_declaration
-        (primitive_type)
-        (array_declarator
-          (field_identifier)
-          (identifier)))
-      (preproc_call
-        (preproc_directive)
-        (preproc_arg)))))
+  (struct_declaration
+    (struct_specifier
+      (type_identifier)
+      (field_declaration_list
+        (preproc_def
+          (identifier)
+          (preproc_arg))
+        (field_declaration
+          (primitive_type)
+          (array_declarator
+            (field_identifier)
+            (identifier)))
+        (preproc_call
+          (preproc_directive)
+          (preproc_arg))))))
 
 ================================================================================
 Primitive-typed variable declarations
@@ -244,8 +258,9 @@ enum { g, h } i;
   (declaration
     type: (enum_specifier
       body: (enumerator_list
-        (enumerator
-          name: (identifier))
+        (enumerator_declaration
+          declarator: (enumerator
+            name: (identifier)))
         (enumerator
           name: (identifier))))
     declarator: (identifier)))
@@ -929,16 +944,17 @@ struct __attribute__((__packed__)) foo_t {
       (attribute
         (identifier)))
     (expression_statement))
-  (struct_specifier
-    (type_identifier)
-    (field_declaration_list
-      (field_declaration
-        (primitive_type)
-        (attributed_declarator
-          (field_identifier)
-          (attribute_declaration
-            (attribute
-              (identifier)))))))
+  (struct_declaration
+    (struct_specifier
+      (type_identifier)
+      (field_declaration_list
+        (field_declaration
+          (primitive_type)
+          (attributed_declarator
+            (field_identifier)
+            (attribute_declaration
+              (attribute
+                (identifier))))))))
   (type_definition
     (primitive_type)
     (attributed_declarator
@@ -946,59 +962,63 @@ struct __attribute__((__packed__)) foo_t {
       (attribute_declaration
         (attribute
           (identifier)))))
-  (struct_specifier
-    (type_identifier)
-    (field_declaration_list
-      (field_declaration
-        (primitive_type)
-        (field_identifier)
-        (attribute_specifier
-          (argument_list
-            (call_expression
-              (identifier)
-              (argument_list
-                (number_literal)))))))
-    (attribute_specifier
-      (argument_list
-        (call_expression
-          (identifier)
-          (argument_list
-            (number_literal))))))
-  (union_specifier
-    (type_identifier)
-    (field_declaration_list
-      (field_declaration
-        (primitive_type)
-        (field_identifier)
-        (attribute_specifier
-          (argument_list
-            (call_expression
-              (identifier)
-              (argument_list
-                (number_literal)))))))
-    (attribute_specifier
-      (argument_list
-        (call_expression
-          (identifier)
-          (argument_list
-            (number_literal))))))
-  (enum_specifier
-    (type_identifier)
-    (enumerator_list
-      (enumerator
-        (identifier)))
-    (attribute_specifier
-      (argument_list
-        (call_expression
-          (identifier)
-          (argument_list
-            (number_literal))))))
-  (struct_specifier
-    (attribute_specifier
-      (argument_list
-        (identifier)))
-    (type_identifier)
-    (field_declaration_list
-      (field_declaration
-        (primitive_type)
-        (field_identifier)))))
+  (struct_declaration
+    (struct_specifier
+      (type_identifier)
+      (field_declaration_list
+        (field_declaration
+          (primitive_type)
+          (field_identifier)
+          (attribute_specifier
+            (argument_list
+              (call_expression
+                (identifier)
+                (argument_list
+                  (number_literal)))))))
+      (attribute_specifier
+        (argument_list
+          (call_expression
+            (identifier)
+            (argument_list
+              (number_literal)))))))
+  (union_declaration
+    (union_specifier
+      (type_identifier)
+      (field_declaration_list
+        (field_declaration
+          (primitive_type)
+          (field_identifier)
+          (attribute_specifier
+            (argument_list
+              (call_expression
+                (identifier)
+                (argument_list
+                  (number_literal)))))))
+      (attribute_specifier
+        (argument_list
+          (call_expression
+            (identifier)
+            (argument_list
+              (number_literal)))))))
+  (enum_declaration
+    (enum_specifier
+      (type_identifier)
+      (enumerator_list
+        (enumerator
+          (identifier)))
+      (attribute_specifier
+        (argument_list
+          (call_expression
+            (identifier)
+            (argument_list
+              (number_literal)))))))
+  (struct_declaration
+    (struct_specifier
+      (attribute_specifier
+        (argument_list
+          (identifier)))
+      (type_identifier)
+      (field_declaration_list
+        (field_declaration
+          (primitive_type)
+          (field_identifier))))))
