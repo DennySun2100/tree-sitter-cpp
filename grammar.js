@@ -41,14 +41,21 @@ module.exports = grammar(C, {
     $.raw_string_content,
   ],
 
-  conflicts: ($, original) => original.concat([
+  conflicts: $ => [
+    // C
+    [$._type_specifier, $._declarator],
+    [$._type_specifier, $._expression_not_binary],
+    [$.sized_type_specifier],
+    [$.attributed_statement],
+    [$._declaration_modifiers, $.attributed_statement],
+
+    // C++
     [$.template_function, $.template_type],
     [$.template_function, $.template_type, $._expression_not_binary],
     [$.template_function, $.template_type, $.qualified_identifier],
     [$.template_method, $.field_expression],
     [$.template_type, $.qualified_type_identifier],
     [$.qualified_type_identifier, $.qualified_identifier],
-    [$.dependent_type_identifier, $.dependent_identifier],
     [$.comma_expression, $.initializer_list],
     [$._expression_not_binary, $._declarator],
     [$._expression_not_binary, $.structured_binding_declarator],
@@ -56,12 +63,7 @@ module.exports = grammar(C, {
     [$.parameter_list, $.argument_list],
     [$._type_specifier, $.call_expression],
     [$._declaration_specifiers, $._constructor_specifiers],
-    [$._declaration_modifiers, $.operator_cast_declaration, $.operator_cast_definition, $.constructor_or_destructor_definition],
-    [$._declaration_modifiers, $.attributed_statement, $.operator_cast_declaration, $.operator_cast_definition, $.constructor_or_destructor_definition],
-    [$.attributed_statement, $.operator_cast_declaration, $.operator_cast_definition, $.constructor_or_destructor_definition],
     [$._binary_fold_operator, $._fold_operator],
-    [$.expression_statement, $.for_statement],
-    [$.init_statement, $.for_statement],
     [$._function_declarator_seq],
     [$.translation_unit, $._type_specifier],
     [$.compound_statement, $._type_specifier],
@@ -71,15 +73,20 @@ module.exports = grammar(C, {
     [$.preproc_else, $._type_specifier],
     [$._declaration_modifiers, $.pointer_declarator],
     [$._new_expression_type_specifier],
-  ]),
+  ],
 
   inline: ($, original) => original.concat([
     $._namespace_identifier,
   ]),
 
+  precedences: $ => [
+    [$.argument_list, $.type_qualifier],
+    [$._expression_not_binary, $._class_name],
+  ],
+
   rules: {
     _top_level_item: ($, original) => choice(
-      original,
+      ...original.members.filter((member) => member.content?.name != '_old_style_function_definition'),
       $.namespace_definition,
       $.concept_definition,
       $.namespace_alias_definition,
@@ -95,7 +102,7 @@ module.exports = grammar(C, {
     ),
 
     _block_item: ($, original) => choice(
-      original,
+      ...original.members.filter((member) => member.content?.name != '_old_style_function_definition'),
       $.namespace_definition,
       $.concept_definition,
       $.namespace_alias_definition,
@@ -169,10 +176,13 @@ module.exports = grammar(C, {
     // When used in a trailing return type, these specifiers can now occur immediately before
     // a compound statement. This introduces a shift/reduce conflict that needs to be resolved
     // with an associativity.
-    _class_declaration: $ => prec.right(seq(
+    _class_declaration: $ => seq(
       repeat(choice($.attribute_specifier, $.alignas_specifier)),
       optional($.ms_declspec_modifier),
       repeat($.attribute_declaration),
+      $._class_declaration_item,
+    ),
+    _class_declaration_item: $ => prec.right(seq(
       choice(
         field('name', $._class_name),
         seq(
@@ -471,12 +481,15 @@ module.exports = grammar(C, {
 
     field_declaration: $ => seq(
       $._declaration_specifiers,
-      commaSep(field('declarator', $._field_declarator)),
-      optional(choice(
-        $.bitfield_clause,
-        field('default_value', $.initializer_list),
-        seq('=', field('default_value', choice($._expression, $.initializer_list))),
+      commaSep(seq(
+        field('declarator', $._field_declarator),
+        optional(choice(
+          $.bitfield_clause,
+          field('default_value', $.initializer_list),
+          seq('=', field('default_value', choice($._expression, $.initializer_list))),
+        )),
       )),
+      optional($.attribute_specifier),
       ';',
     ),
 
@@ -603,22 +616,37 @@ module.exports = grammar(C, {
 
     ref_qualifier: _ => choice('&', '&&'),
 
-    _function_declarator_seq: $ => prec.right(seq(
+    _function_declarator_seq: $ => seq(
       field('parameters', $.parameter_list),
-      repeat($.attribute_specifier),
-      repeat($.type_qualifier),
+      optional($._function_attributes_start),
       optional($.ref_qualifier),
-      optional(choice(
-        $.noexcept,
-        $.throw_specifier,
-      )),
-      repeat($.attribute_specifier),
-      repeat($.attribute_declaration),
+      optional($._function_exception_specification),
+      optional($._function_attributes_end),
       optional($.trailing_return_type),
-      optional(choice(
-        repeat($.virtual_specifier),
-        $.requires_clause,
-      )),
+      optional($._function_postfix),
+    ),
+
+    _function_attributes_start: $ => prec(1, choice(
+      seq(repeat1($.attribute_specifier), repeat($.type_qualifier)),
+      seq(repeat($.attribute_specifier), repeat1($.type_qualifier)),
+    )),
+
+    _function_exception_specification: $ => choice(
+      $.noexcept,
+      $.throw_specifier,
+    ),
+
+    _function_attributes_end: $ => prec.right(seq(
+      optional($.gnu_asm_expression),
+      choice(
+        seq(repeat1($.attribute_specifier), repeat($.attribute_declaration)),
+        seq(repeat($.attribute_specifier), repeat1($.attribute_declaration)),
+      ),
+    )),
+
+    _function_postfix: $ => prec.right(choice(
+      repeat1($.virtual_specifier),
+      $.requires_clause,
     )),
 
     function_declarator: $ => prec.dynamic(1, seq(
@@ -802,9 +830,15 @@ module.exports = grammar(C, {
       optional(field('alternative', $.else_clause)),
     )),
 
+    _for_statement_body: ($, original) => prec(1, original),
     for_range_loop: $ => seq(
       'for',
       '(',
+      $._for_range_loop_body,
+      ')',
+      field('body', $._statement),
+    ),
+    _for_range_loop_body: $ => seq(
       field('initializer', optional($.init_statement)),
       $._declaration_specifiers,
       field('declarator', $._declarator),
@@ -813,8 +847,6 @@ module.exports = grammar(C, {
         $._expression,
         $.initializer_list,
       )),
-      ')',
-      field('body', $._statement),
     ),
 
     init_statement: $ => choice(
@@ -893,7 +925,6 @@ module.exports = grammar(C, {
       $.requires_clause,
       $.template_function,
       $.qualified_identifier,
-      $.alignof_expression,
       $.new_expression,
       $.delete_expression,
       $.lambda_expression,
@@ -1123,13 +1154,6 @@ module.exports = grammar(C, {
       ),
     )),
 
-    alignof_expression: $ => prec.right(PREC.SIZEOF, seq(
-      'alignof',
-      '(',
-      field('type', $.type_descriptor),
-      ')',
-    )),
-
     unary_expression: ($, original) => choice(
       original,
       prec.left(PREC.UNARY, seq(
@@ -1161,9 +1185,10 @@ module.exports = grammar(C, {
         }));
     },
 
+    // The compound_statement is added to parse macros taking statements as arguments, e.g. MYFORLOOP(1, 10, i, { foo(i); bar(i); })
     argument_list: $ => seq(
       '(',
-      commaSep(choice($._expression, $.initializer_list)),
+      commaSep(choice(seq(optional('__extension__'), $._expression), $.initializer_list, $.compound_statement)),
       ')',
     ),
 
@@ -1207,7 +1232,7 @@ module.exports = grammar(C, {
         alias($.dependent_identifier, $.dependent_name),
         $.qualified_identifier,
         $.template_function,
-        $.identifier,
+        seq(optional('template'), $.identifier),
         $.operator_name,
         $.destructor_name,
         $.pointer_type_declarator,
@@ -1235,6 +1260,7 @@ module.exports = grammar(C, {
     _assignment_left_expression: ($, original) => choice(
       original,
       $.qualified_identifier,
+      $.user_defined_literal,
     ),
 
     assignment_expression: $ => prec.right(PREC.ASSIGNMENT, seq(
@@ -1287,8 +1313,9 @@ module.exports = grammar(C, {
     this: _ => 'this',
 
     concatenated_string: $ => seq(
-      choice($.raw_string_literal, $.string_literal),
-      repeat1(choice($.raw_string_literal, $.string_literal)),
+      choice($.identifier, $.string_literal, $.raw_string_literal),
+      choice($.string_literal, $.raw_string_literal),
+      repeat(choice($.identifier, $.string_literal, $.raw_string_literal)),
     ),
 
     literal_suffix: _ => token.immediate(/[a-zA-Z_]\w*/),
