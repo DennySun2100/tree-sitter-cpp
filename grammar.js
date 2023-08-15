@@ -10,7 +10,7 @@
 /// <reference types="tree-sitter-cli/dsl" />
 // @ts-check
 
-const C = require('../tree-sitter-c/grammar');
+const C = require('tree-sitter-c/grammar');
 
 const PREC = Object.assign(C.PREC, {
   LAMBDA: 18,
@@ -65,15 +65,6 @@ module.exports = grammar(C, {
     [$._declaration_specifiers, $._constructor_specifiers],
     [$._binary_fold_operator, $._fold_operator],
     [$._function_declarator_seq],
-    [$._delete_expression_operator],
-    [$.delete_expression, $._expression_not_binary],
-    [$.delete_expression, $.operator_function_call],
-    [$.operator_function_call, $._expression_not_binary],
-    [$._declaration_modifiers, $.pointer_declarator],
-    [$._type_specifier, $.enum_declaration],
-    [$._type_specifier, $.struct_declaration],
-    [$._type_specifier, $.union_declaration],
-    [$._new_expression_type_specifier],
   ],
 
   inline: ($, original) => original.concat([
@@ -96,7 +87,6 @@ module.exports = grammar(C, {
       $.static_assert_declaration,
       $.template_declaration,
       $.template_instantiation,
-      $.class_declaration,
       alias($.constructor_or_destructor_definition, $.function_definition),
       alias($.operator_cast_definition, $.function_definition),
       alias($.operator_cast_declaration, $.declaration),
@@ -112,7 +102,6 @@ module.exports = grammar(C, {
       $.static_assert_declaration,
       $.template_declaration,
       $.template_instantiation,
-      $.class_declaration,
       alias($.constructor_or_destructor_definition, $.function_definition),
       alias($.operator_cast_definition, $.function_definition),
       alias($.operator_cast_declaration, $.declaration),
@@ -165,15 +154,6 @@ module.exports = grammar(C, {
 
     type_descriptor: (_, original) => prec.right(original),
 
-    _new_expression_type_specifier: $ => seq(
-      field('type', $._type_specifier),
-      field('declarator', repeat(alias($._new_expression_pointer_declarator, $.abstract_pointer_declarator))),
-    ),
-
-    _new_expression_pointer_declarator: $ => prec.dynamic(1, prec.right(seq('*',
-      repeat($.type_qualifier),
-    ))),
-
     // When used in a trailing return type, these specifiers can now occur immediately before
     // a compound statement. This introduces a shift/reduce conflict that needs to be resolved
     // with an associativity.
@@ -201,29 +181,14 @@ module.exports = grammar(C, {
       $._class_declaration,
     ),
 
-    class_declaration: $ => prec(1, seq(
-      field('declarator', $.class_specifier),
-      ';',
-    )),
-
     union_specifier: $ => seq(
       'union',
       $._class_declaration,
     ),
 
-    union_declaration: $ => seq(
-      field('declarator', $.union_specifier),
-      ';',
-    ),
-
     struct_specifier: $ => seq(
       'struct',
       $._class_declaration,
-    ),
-
-    struct_declaration: $ => seq(
-      field('declarator', $.struct_specifier),
-      ';',
     ),
 
     _class_name: $ => prec.right(choice(
@@ -296,11 +261,6 @@ module.exports = grammar(C, {
         field('body', $.enumerator_list),
       ),
       optional($.attribute_specifier),
-    )),
-
-    enum_declaration: $ => prec.right(seq(
-      field('declarator', $.enum_specifier),
-      ';',
     )),
 
     _enum_base_clause: $ => prec.left(seq(
@@ -474,8 +434,7 @@ module.exports = grammar(C, {
       alias($.operator_cast_definition, $.function_definition),
       alias($.operator_cast_declaration, $.declaration),
       $.friend_declaration,
-      $.access_declaration,
-      //seq($.access_specifier, ':'), This is what the upstream tree-sitter has now, will be removed after we merge the changes back to upstream repo.
+      seq($.access_specifier, ':'),
       $.alias_declaration,
       $.using_declaration,
       $.type_definition,
@@ -484,7 +443,6 @@ module.exports = grammar(C, {
 
     field_declaration: $ => seq(
       $._declaration_specifiers,
-      repeat($._scope_resolution),
       commaSep(seq(
         field('declarator', $._field_declarator),
         optional(choice(
@@ -581,11 +539,6 @@ module.exports = grammar(C, {
       'public',
       'private',
       'protected',
-    ),
-
-    access_declaration: $ => seq(
-      field('declarator', $.access_specifier),
-      ':',
     ),
 
     _declarator: ($, original) => choice(
@@ -703,12 +656,6 @@ module.exports = grammar(C, {
     template_function: $ => seq(
       field('name', $.identifier),
       field('arguments', $.template_argument_list),
-    ),
-
-    operator_function_call: $ => seq(
-      choice($.identifier, $.this),
-      choice('->', '.'),
-      $.operator_name,
     ),
 
     template_argument_list: $ => seq(
@@ -934,7 +881,6 @@ module.exports = grammar(C, {
       $.requires_expression,
       $.requires_clause,
       $.template_function,
-      $.operator_function_call,
       $.qualified_identifier,
       $.new_expression,
       $.delete_expression,
@@ -989,7 +935,7 @@ module.exports = grammar(C, {
       optional('::'),
       'new',
       field('placement', optional($.argument_list)),
-      field('type', $._new_expression_type_specifier),
+      field('type', $._type_specifier),
       field('declarator', optional($.new_declarator)),
       field('arguments', optional(choice(
         $.argument_list,
@@ -1006,14 +952,9 @@ module.exports = grammar(C, {
 
     delete_expression: $ => seq(
       optional('::'),
-      $._delete_expression_operator,
-      // Boost the precedence of the cast_expression to avoid ambiguity with the call_expression
-      choice(prec.dynamic(20, $.cast_expression), $._expression),
-    ),
-
-    _delete_expression_operator: $ => seq(
       'delete',
       optional(seq('[', ']')),
+      $._expression,
     ),
 
     field_expression: $ => seq(

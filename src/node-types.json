@@ -172,10 +172,6 @@
         "named": true
       },
       {
-        "type": "operator_function_call",
-        "named": true
-      },
-      {
         "type": "parameter_pack_expansion",
         "named": true
       },
@@ -627,22 +623,6 @@
           "named": true
         }
       ]
-    }
-  },
-  {
-    "type": "access_declaration",
-    "named": true,
-    "fields": {
-      "declarator": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "access_specifier",
-            "named": true
-          }
-        ]
-      }
     }
   },
   {
@@ -1435,22 +1415,6 @@
     }
   },
   {
-    "type": "class_declaration",
-    "named": true,
-    "fields": {
-      "declarator": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "class_specifier",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "class_specifier",
     "named": true,
     "fields": {
@@ -1682,19 +1646,11 @@
           "named": true
         },
         {
-          "type": "class_declaration",
-          "named": true
-        },
-        {
           "type": "concept_definition",
           "named": true
         },
         {
           "type": "declaration",
-          "named": true
-        },
-        {
-          "type": "enum_declaration",
           "named": true
         },
         {
@@ -1742,10 +1698,6 @@
           "named": true
         },
         {
-          "type": "struct_declaration",
-          "named": true
-        },
-        {
           "type": "template_declaration",
           "named": true
         },
@@ -1755,10 +1707,6 @@
         },
         {
           "type": "type_definition",
-          "named": true
-        },
-        {
-          "type": "union_declaration",
           "named": true
         },
         {
@@ -2150,7 +2098,7 @@
           "named": true
         },
         {
-          "type": "ms_call_modifier",
+          "type": "ms_declspec_modifier",
           "named": true
         },
         {
@@ -2189,19 +2137,11 @@
           "named": true
         },
         {
-          "type": "class_declaration",
-          "named": true
-        },
-        {
           "type": "concept_definition",
           "named": true
         },
         {
           "type": "declaration",
-          "named": true
-        },
-        {
-          "type": "enum_declaration",
           "named": true
         },
         {
@@ -2249,10 +2189,6 @@
           "named": true
         },
         {
-          "type": "struct_declaration",
-          "named": true
-        },
-        {
           "type": "template_declaration",
           "named": true
         },
@@ -2262,10 +2198,6 @@
         },
         {
           "type": "type_definition",
-          "named": true
-        },
-        {
-          "type": "union_declaration",
           "named": true
         },
         {
@@ -2414,22 +2346,6 @@
     }
   },
   {
-    "type": "enum_declaration",
-    "named": true,
-    "fields": {
-      "declarator": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "enum_specifier",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "enum_specifier",
     "named": true,
     "fields": {
@@ -2518,22 +2434,6 @@
     }
   },
   {
-    "type": "enumerator_declaration",
-    "named": true,
-    "fields": {
-      "declarator": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "enumerator",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "enumerator_list",
     "named": true,
     "fields": {},
@@ -2543,10 +2443,6 @@
       "types": [
         {
           "type": "enumerator",
-          "named": true
-        },
-        {
-          "type": "enumerator_declaration",
           "named": true
         }
       ]
@@ -2614,28 +2510,6 @@
           }
         ]
       },
-      "scope": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "decltype",
-            "named": true
-          },
-          {
-            "type": "dependent_name",
-            "named": true
-          },
-          {
-            "type": "namespace_identifier",
-            "named": true
-          },
-          {
-            "type": "template_type",
-            "named": true
-          }
-        ]
-      },
       "type": {
         "multiple": false,
         "required": true,
@@ -2668,7 +2542,7 @@
           "named": true
         },
         {
-          "type": "ms_call_modifier",
+          "type": "ms_declspec_modifier",
           "named": true
         },
         {
@@ -2695,7 +2569,7 @@
       "required": false,
       "types": [
         {
-          "type": "access_declaration",
+          "type": "access_specifier",
           "named": true
         },
         {
@@ -3142,7 +3016,7 @@
           "named": true
         },
         {
-          "type": "ms_call_modifier",
+          "type": "ms_declspec_modifier",
           "named": true
         },
         {
@@ -3418,6 +3292,10 @@
         },
         {
           "type": "ms_call_modifier",
+          "named": true
+        },
+        {
+          "type": "ms_declspec_modifier",
           "named": true
         },
         {
@@ -4004,13 +3882,9 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
-        {
-          "type": "argument_list",
-          "named": true
-        },
         {
           "type": "identifier",
           "named": true
@@ -4174,13 +4048,9 @@
         ]
       },
       "declarator": {
-        "multiple": true,
+        "multiple": false,
         "required": false,
         "types": [
-          {
-            "type": "abstract_pointer_declarator",
-            "named": true
-          },
           {
             "type": "new_declarator",
             "named": true
@@ -4198,15 +4068,11 @@
         ]
       },
       "type": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
             "type": "_type_specifier",
-            "named": true
-          },
-          {
-            "type": "abstract_pointer_declarator",
             "named": true
           }
         ]
@@ -4301,7 +4167,7 @@
           "named": true
         },
         {
-          "type": "ms_call_modifier",
+          "type": "ms_declspec_modifier",
           "named": true
         },
         {
@@ -4314,29 +4180,6 @@
         },
         {
           "type": "virtual",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "operator_function_call",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "operator_name",
-          "named": true
-        },
-        {
-          "type": "this",
           "named": true
         }
       ]
@@ -4409,7 +4252,7 @@
           "named": true
         },
         {
-          "type": "ms_call_modifier",
+          "type": "ms_declspec_modifier",
           "named": true
         },
         {
@@ -4499,7 +4342,7 @@
           "named": true
         },
         {
-          "type": "ms_call_modifier",
+          "type": "ms_declspec_modifier",
           "named": true
         },
         {
@@ -4573,7 +4416,7 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
@@ -4586,10 +4429,6 @@
         },
         {
           "type": "_type_declarator",
-          "named": true
-        },
-        {
-          "type": "ms_declspec_modifier",
           "named": true
         }
       ]
@@ -4680,10 +4519,6 @@
           "named": true
         },
         {
-          "type": "ms_call_modifier",
-          "named": true
-        },
-        {
           "type": "ms_pointer_modifier",
           "named": true
         },
@@ -4745,10 +4580,6 @@
       "types": [
         {
           "type": "ms_based_modifier",
-          "named": true
-        },
-        {
-          "type": "ms_call_modifier",
           "named": true
         },
         {
@@ -4899,15 +4730,11 @@
           "named": true
         },
         {
-          "type": "access_declaration",
+          "type": "access_specifier",
           "named": true
         },
         {
           "type": "alias_declaration",
-          "named": true
-        },
-        {
-          "type": "class_declaration",
           "named": true
         },
         {
@@ -4916,10 +4743,6 @@
         },
         {
           "type": "declaration",
-          "named": true
-        },
-        {
-          "type": "enum_declaration",
           "named": true
         },
         {
@@ -4975,10 +4798,6 @@
           "named": true
         },
         {
-          "type": "struct_declaration",
-          "named": true
-        },
-        {
           "type": "template_declaration",
           "named": true
         },
@@ -4988,10 +4807,6 @@
         },
         {
           "type": "type_definition",
-          "named": true
-        },
-        {
-          "type": "union_declaration",
           "named": true
         },
         {
@@ -5047,19 +4862,11 @@
           "named": true
         },
         {
-          "type": "class_declaration",
-          "named": true
-        },
-        {
           "type": "concept_definition",
           "named": true
         },
         {
           "type": "declaration",
-          "named": true
-        },
-        {
-          "type": "enum_declaration",
           "named": true
         },
         {
@@ -5107,10 +4914,6 @@
           "named": true
         },
         {
-          "type": "struct_declaration",
-          "named": true
-        },
-        {
           "type": "template_declaration",
           "named": true
         },
@@ -5120,10 +4923,6 @@
         },
         {
           "type": "type_definition",
-          "named": true
-        },
-        {
-          "type": "union_declaration",
           "named": true
         },
         {
@@ -5150,15 +4949,11 @@
           "named": true
         },
         {
-          "type": "access_declaration",
+          "type": "access_specifier",
           "named": true
         },
         {
           "type": "alias_declaration",
-          "named": true
-        },
-        {
-          "type": "class_declaration",
           "named": true
         },
         {
@@ -5167,10 +4962,6 @@
         },
         {
           "type": "declaration",
-          "named": true
-        },
-        {
-          "type": "enum_declaration",
           "named": true
         },
         {
@@ -5226,10 +5017,6 @@
           "named": true
         },
         {
-          "type": "struct_declaration",
-          "named": true
-        },
-        {
           "type": "template_declaration",
           "named": true
         },
@@ -5239,10 +5026,6 @@
         },
         {
           "type": "type_definition",
-          "named": true
-        },
-        {
-          "type": "union_declaration",
           "named": true
         },
         {
@@ -5358,15 +5141,11 @@
           "named": true
         },
         {
-          "type": "access_declaration",
+          "type": "access_specifier",
           "named": true
         },
         {
           "type": "alias_declaration",
-          "named": true
-        },
-        {
-          "type": "class_declaration",
           "named": true
         },
         {
@@ -5375,10 +5154,6 @@
         },
         {
           "type": "declaration",
-          "named": true
-        },
-        {
-          "type": "enum_declaration",
           "named": true
         },
         {
@@ -5434,10 +5209,6 @@
           "named": true
         },
         {
-          "type": "struct_declaration",
-          "named": true
-        },
-        {
           "type": "template_declaration",
           "named": true
         },
@@ -5447,10 +5218,6 @@
         },
         {
           "type": "type_definition",
-          "named": true
-        },
-        {
-          "type": "union_declaration",
           "named": true
         },
         {
@@ -5506,15 +5273,11 @@
           "named": true
         },
         {
-          "type": "access_declaration",
+          "type": "access_specifier",
           "named": true
         },
         {
           "type": "alias_declaration",
-          "named": true
-        },
-        {
-          "type": "class_declaration",
           "named": true
         },
         {
@@ -5523,10 +5286,6 @@
         },
         {
           "type": "declaration",
-          "named": true
-        },
-        {
-          "type": "enum_declaration",
           "named": true
         },
         {
@@ -5582,10 +5341,6 @@
           "named": true
         },
         {
-          "type": "struct_declaration",
-          "named": true
-        },
-        {
           "type": "template_declaration",
           "named": true
         },
@@ -5595,10 +5350,6 @@
         },
         {
           "type": "type_definition",
-          "named": true
-        },
-        {
-          "type": "union_declaration",
           "named": true
         },
         {
@@ -6108,22 +5859,6 @@
     }
   },
   {
-    "type": "struct_declaration",
-    "named": true,
-    "fields": {
-      "declarator": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "struct_specifier",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "struct_specifier",
     "named": true,
     "fields": {
@@ -6429,7 +6164,7 @@
           "named": true
         },
         {
-          "type": "ms_call_modifier",
+          "type": "ms_declspec_modifier",
           "named": true
         },
         {
@@ -6650,10 +6385,6 @@
           "named": true
         },
         {
-          "type": "class_declaration",
-          "named": true
-        },
-        {
           "type": "co_return_statement",
           "named": true
         },
@@ -6679,10 +6410,6 @@
         },
         {
           "type": "do_statement",
-          "named": true
-        },
-        {
-          "type": "enum_declaration",
           "named": true
         },
         {
@@ -6758,10 +6485,6 @@
           "named": true
         },
         {
-          "type": "struct_declaration",
-          "named": true
-        },
-        {
           "type": "switch_statement",
           "named": true
         },
@@ -6783,10 +6506,6 @@
         },
         {
           "type": "type_definition",
-          "named": true
-        },
-        {
-          "type": "union_declaration",
           "named": true
         },
         {
@@ -6924,17 +6643,7 @@
   {
     "type": "type_qualifier",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "ms_declspec_modifier",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
     "type": "type_requirement",
@@ -7004,22 +6713,6 @@
           {
             "type": "~",
             "named": false
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "union_declaration",
-    "named": true,
-    "fields": {
-      "declarator": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "union_specifier",
-            "named": true
           }
         ]
       }
@@ -7239,7 +6932,7 @@
           "named": true
         },
         {
-          "type": "ms_call_modifier",
+          "type": "ms_declspec_modifier",
           "named": true
         },
         {
@@ -7694,10 +7387,6 @@
   },
   {
     "type": "__vectorcall",
-    "named": false
-  },
-  {
-    "type": "__volatile",
     "named": false
   },
   {
