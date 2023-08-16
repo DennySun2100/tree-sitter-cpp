@@ -66,6 +66,18 @@
         },
         {
           "type": "SYMBOL",
+          "name": "struct_declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "union_declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "enum_declaration"
+        },
+        {
+          "type": "SYMBOL",
           "name": "namespace_definition"
         },
         {
@@ -183,6 +195,18 @@
         {
           "type": "SYMBOL",
           "name": "preproc_call"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "struct_declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "union_declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "enum_declaration"
         },
         {
           "type": "SYMBOL",
@@ -1994,18 +2018,6 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "ms_call_modifier"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
           "type": "SYMBOL",
           "name": "_declaration_specifiers"
         },
@@ -2311,7 +2323,7 @@
             },
             {
               "type": "SYMBOL",
-              "name": "ms_declspec_modifier"
+              "name": "ms_call_modifier"
             }
           ]
         },
@@ -2515,8 +2527,25 @@
           "value": "("
         },
         {
-          "type": "SYMBOL",
-          "name": "identifier"
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "argument_list"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "STRING",
@@ -2933,6 +2962,18 @@
             "value": "("
           },
           {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "ms_declspec_modifier"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
             "type": "SYMBOL",
             "name": "_type_declarator"
           },
@@ -3046,6 +3087,18 @@
               ]
             },
             {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "ms_call_modifier"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
               "type": "STRING",
               "value": "*"
             },
@@ -3097,6 +3150,18 @@
               ]
             },
             {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "ms_call_modifier"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
               "type": "STRING",
               "value": "*"
             },
@@ -3141,6 +3206,18 @@
                 {
                   "type": "SYMBOL",
                   "name": "ms_based_modifier"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "ms_call_modifier"
                 },
                 {
                   "type": "BLANK"
@@ -3729,6 +3806,10 @@
             },
             {
               "type": "STRING",
+              "value": "__volatile"
+            },
+            {
+              "type": "STRING",
               "value": "restrict"
             },
             {
@@ -3750,6 +3831,10 @@
             {
               "type": "STRING",
               "value": "noreturn"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "ms_declspec_modifier"
             }
           ]
         },
@@ -4104,6 +4189,27 @@
         ]
       }
     },
+    "enum_declaration": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "declarator",
+            "content": {
+              "type": "SYMBOL",
+              "name": "enum_specifier"
+            }
+          },
+          {
+            "type": "STRING",
+            "value": ";"
+          }
+        ]
+      }
+    },
     "enumerator_list": {
       "type": "SEQ",
       "members": [
@@ -4112,44 +4218,18 @@
           "value": "{"
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "enumerator"
-                },
-                {
-                  "type": "REPEAT",
-                  "content": {
-                    "type": "SEQ",
-                    "members": [
-                      {
-                        "type": "STRING",
-                        "value": ","
-                      },
-                      {
-                        "type": "SYMBOL",
-                        "name": "enumerator"
-                      }
-                    ]
-                  }
-                }
-              ]
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "enumerator_declaration"
+          }
         },
         {
           "type": "CHOICE",
           "members": [
             {
-              "type": "STRING",
-              "value": ","
+              "type": "SYMBOL",
+              "name": "enumerator"
             },
             {
               "type": "BLANK"
@@ -4175,6 +4255,23 @@
         }
       ]
     },
+    "struct_declaration": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "declarator",
+          "content": {
+            "type": "SYMBOL",
+            "name": "struct_specifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ";"
+        }
+      ]
+    },
     "union_specifier": {
       "type": "SEQ",
       "members": [
@@ -4185,6 +4282,23 @@
         {
           "type": "SYMBOL",
           "name": "_class_declaration"
+        }
+      ]
+    },
+    "union_declaration": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "declarator",
+          "content": {
+            "type": "SYMBOL",
+            "name": "union_specifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ";"
         }
       ]
     },
@@ -4625,6 +4739,23 @@
               "type": "BLANK"
             }
           ]
+        }
+      ]
+    },
+    "enumerator_declaration": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "declarator",
+          "content": {
+            "type": "SYMBOL",
+            "name": "enumerator"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ","
         }
       ]
     },
@@ -5771,7 +5902,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "operator_function_call"
+          "name": "operator_function_call_expression"
         },
         {
           "type": "SYMBOL",
@@ -7613,7 +7744,15 @@
         },
         {
           "type": "STRING",
+          "value": "__volatile"
+        },
+        {
+          "type": "STRING",
           "value": "inline"
+        },
+        {
+          "type": "STRING",
+          "value": "__inline"
         },
         {
           "type": "STRING",
@@ -9867,40 +10006,6 @@
         ]
       }
     },
-    "union_declaration": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "FIELD",
-          "name": "declarator",
-          "content": {
-            "type": "SYMBOL",
-            "name": "union_specifier"
-          }
-        },
-        {
-          "type": "STRING",
-          "value": ";"
-        }
-      ]
-    },
-    "struct_declaration": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "FIELD",
-          "name": "declarator",
-          "content": {
-            "type": "SYMBOL",
-            "name": "struct_specifier"
-          }
-        },
-        {
-          "type": "STRING",
-          "value": ";"
-        }
-      ]
-    },
     "_class_name": {
       "type": "PREC_RIGHT",
       "value": 0,
@@ -10180,27 +10285,6 @@
           ]
         }
       ]
-    },
-    "enum_declaration": {
-      "type": "PREC_RIGHT",
-      "value": 0,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "FIELD",
-            "name": "declarator",
-            "content": {
-              "type": "SYMBOL",
-              "name": "enum_specifier"
-            }
-          },
-          {
-            "type": "STRING",
-            "value": ";"
-          }
-        ]
-      }
     },
     "_enum_base_clause": {
       "type": "PREC_LEFT",
@@ -11892,7 +11976,7 @@
         }
       ]
     },
-    "operator_function_call": {
+    "operator_function_call_expression": {
       "type": "SEQ",
       "members": [
         {
@@ -15347,7 +15431,7 @@
   "extras": [
     {
       "type": "PATTERN",
-      "value": "\\s|\\\\\\r?\\n"
+      "value": "\\s|\\\\\\r?\\n|\\f|\\v|\\x08"
     },
     {
       "type": "SYMBOL",
@@ -15444,10 +15528,10 @@
     ],
     [
       "delete_expression",
-      "operator_function_call"
+      "operator_function_call_expression"
     ],
     [
-      "operator_function_call",
+      "operator_function_call_expression",
       "_expression_not_binary"
     ],
     [

@@ -67,8 +67,8 @@ module.exports = grammar(C, {
     [$._function_declarator_seq],
     [$._delete_expression_operator],
     [$.delete_expression, $._expression_not_binary],
-    [$.delete_expression, $.operator_function_call],
-    [$.operator_function_call, $._expression_not_binary],
+    [$.delete_expression, $.operator_function_call_expression],
+    [$.operator_function_call_expression, $._expression_not_binary],
     [$._declaration_modifiers, $.pointer_declarator],
     [$._type_specifier, $.enum_declaration],
     [$._type_specifier, $.struct_declaration],
@@ -475,7 +475,7 @@ module.exports = grammar(C, {
       alias($.operator_cast_declaration, $.declaration),
       $.friend_declaration,
       $.access_declaration,
-      //seq($.access_specifier, ':'), This is what the upstream tree-sitter has now, will be removed after we merge the changes back to upstream repo.
+      // seq($.access_specifier, ':'), This is what the upstream tree-sitter has now, will be removed after we merge the changes back to upstream repo.
       $.alias_declaration,
       $.using_declaration,
       $.type_definition,
@@ -705,7 +705,7 @@ module.exports = grammar(C, {
       field('arguments', $.template_argument_list),
     ),
 
-    operator_function_call: $ => seq(
+    operator_function_call_expression: $ => seq(
       choice($.identifier, $.this),
       choice('->', '.'),
       $.operator_name,
@@ -934,7 +934,7 @@ module.exports = grammar(C, {
       $.requires_expression,
       $.requires_clause,
       $.template_function,
-      $.operator_function_call,
+      $.operator_function_call_expression,
       $.qualified_identifier,
       $.new_expression,
       $.delete_expression,
