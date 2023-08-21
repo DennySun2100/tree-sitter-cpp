@@ -7869,6 +7869,10 @@
     "named": false
   },
   {
+    "type": "hidden",
+    "named": true
+  },
+  {
     "type": "identifier",
     "named": true
   },

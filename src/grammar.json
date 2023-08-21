@@ -9586,7 +9586,7 @@
     },
     "identifier": {
       "type": "PATTERN",
-      "value": "(\\p{XID_Start}|_|\\\\u[0-9A-Fa-f]{4}|\\\\U[0-9A-Fa-f]{8})(\\p{XID_Continue}|\\\\u[0-9A-Fa-f]{4}|\\\\U[0-9A-Fa-f]{8})*"
+      "value": "([$]|[\\p{XID_Start}]|_|\\\\u[0-9A-Fa-f]{4}|\\\\U[0-9A-Fa-f]{8})([$]|[\\p{XID_Continue}]|\\\\u[0-9A-Fa-f]{4}|\\\\U[0-9A-Fa-f]{8})*"
     },
     "_type_identifier": {
       "type": "ALIAS",
@@ -9695,6 +9695,26 @@
                 "value": "/"
               }
             ]
+          }
+        ]
+      }
+    },
+    "hidden": {
+      "type": "TOKEN",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "\b"
+          },
+          {
+            "type": "PATTERN",
+            "value": "[^\\v]*"
+          },
+          {
+            "type": "STRING",
+            "value": "\u000b"
           }
         ]
       }
@@ -15431,11 +15451,15 @@
   "extras": [
     {
       "type": "PATTERN",
-      "value": "\\s|\\\\\\r?\\n|\\f|\\v|\\x08"
+      "value": "\\s|\\\\\\r?\\n|\\f"
     },
     {
       "type": "SYMBOL",
       "name": "comment"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "hidden"
     }
   ],
   "conflicts": [
