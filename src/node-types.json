@@ -3068,6 +3068,74 @@
     }
   },
   {
+    "type": "for_declaration",
+    "named": true,
+    "fields": {
+      "declarator": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "_declarator",
+            "named": true
+          },
+          {
+            "type": "gnu_asm_expression",
+            "named": true
+          },
+          {
+            "type": "init_declarator",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_type_specifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "alignas_specifier",
+          "named": true
+        },
+        {
+          "type": "attribute_declaration",
+          "named": true
+        },
+        {
+          "type": "attribute_specifier",
+          "named": true
+        },
+        {
+          "type": "ms_call_modifier",
+          "named": true
+        },
+        {
+          "type": "storage_class_specifier",
+          "named": true
+        },
+        {
+          "type": "type_qualifier",
+          "named": true
+        },
+        {
+          "type": "virtual",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "for_range_loop",
     "named": true,
     "fields": {
@@ -3189,54 +3257,12 @@
           }
         ]
       },
-      "declarator": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "_declarator",
-            "named": true
-          },
-          {
-            "type": "gnu_asm_expression",
-            "named": true
-          },
-          {
-            "type": "init_declarator",
-            "named": true
-          }
-        ]
-      },
       "initializer": {
-        "multiple": true,
+        "multiple": false,
         "required": false,
         "types": [
-          {
-            "type": ",",
-            "named": false
-          },
-          {
-            "type": "_declarator",
-            "named": true
-          },
           {
             "type": "_expression",
-            "named": true
-          },
-          {
-            "type": "_type_specifier",
-            "named": true
-          },
-          {
-            "type": "alignas_specifier",
-            "named": true
-          },
-          {
-            "type": "attribute_declaration",
-            "named": true
-          },
-          {
-            "type": "attribute_specifier",
             "named": true
           },
           {
@@ -3244,33 +3270,7 @@
             "named": true
           },
           {
-            "type": "init_declarator",
-            "named": true
-          },
-          {
-            "type": "ms_call_modifier",
-            "named": true
-          },
-          {
-            "type": "storage_class_specifier",
-            "named": true
-          },
-          {
-            "type": "type_qualifier",
-            "named": true
-          },
-          {
-            "type": "virtual",
-            "named": true
-          }
-        ]
-      },
-      "type": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "_type_specifier",
+            "type": "for_declaration",
             "named": true
           }
         ]

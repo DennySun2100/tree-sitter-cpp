@@ -5465,6 +5465,19 @@
         }
       ]
     },
+    "for_declaration": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_declaration_specifiers"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_declaration_declarator"
+        }
+      ]
+    },
     "_for_statement_body": {
       "type": "PREC",
       "value": 1,
@@ -5481,17 +5494,8 @@
                   "type": "CHOICE",
                   "members": [
                     {
-                      "type": "SEQ",
-                      "members": [
-                        {
-                          "type": "SYMBOL",
-                          "name": "_declaration_specifiers"
-                        },
-                        {
-                          "type": "SYMBOL",
-                          "name": "_declaration_declarator"
-                        }
-                      ]
+                      "type": "SYMBOL",
+                      "name": "for_declaration"
                     },
                     {
                       "type": "SYMBOL",
@@ -15590,6 +15594,10 @@
     ],
     [
       "_new_expression_type_specifier"
+    ],
+    [
+      "declaration",
+      "for_declaration"
     ]
   ],
   "precedences": [

@@ -74,6 +74,7 @@ module.exports = grammar(C, {
     [$._type_specifier, $.struct_declaration],
     [$._type_specifier, $.union_declaration],
     [$._new_expression_type_specifier],
+    [$.declaration, $.for_declaration],
   ],
 
   inline: ($, original) => original.concat([
