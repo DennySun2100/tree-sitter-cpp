@@ -912,7 +912,7 @@ module.exports = grammar(C, {
 
     throw_statement: $ => seq(
       'throw',
-      optional($._expression),
+      optional(field('exception', $._expression)),
       ';',
     ),
 
