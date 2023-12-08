@@ -1358,7 +1358,7 @@ class X
                               type: (type_identifier))))
                         value: (initializer_list)))
                     right: (parenthesized_expression
-                      (binary_expression
+                      expression: (binary_expression
                         left: (compound_literal_expression
                           type: (template_type
                             name: (type_identifier)
@@ -1483,7 +1483,7 @@ int main() {
               scope: (namespace_identifier)
               name: (identifier))
             arguments: (argument_list
-              (identifier)))))
+              argument: (identifier)))))
       (declaration
         (type_qualifier)
         type: (placeholder_type_specifier

@@ -30,7 +30,7 @@ struct s3 {
           type: (primitive_type)
           declarator: (field_identifier)
           (bitfield_clause
-            (number_literal))))))
+            value: (number_literal))))))
   (struct_declaration
     declarator: (struct_specifier
       name: (type_identifier)
@@ -39,10 +39,10 @@ struct s3 {
           type: (primitive_type)
           declarator: (field_identifier)
           (bitfield_clause
-            (number_literal))
+            value: (number_literal))
           declarator: (field_identifier)
           (bitfield_clause
-            (number_literal)))))))
+            value: (number_literal)))))))
 
 ================================================================================
 Union declarations
@@ -141,20 +141,20 @@ struct s {
 
 (translation_unit
   (struct_declaration
-    (struct_specifier
-      (type_identifier)
-      (field_declaration_list
+    declarator: (struct_specifier
+      name: (type_identifier)
+      body: (field_declaration_list
         (preproc_def
-          (identifier)
-          (preproc_arg))
+          name: (identifier)
+          value: (preproc_arg))
         (field_declaration
-          (primitive_type)
-          (array_declarator
-            (field_identifier)
-            (identifier)))
+          type: (primitive_type)
+          declarator: (array_declarator
+            declarator: (field_identifier)
+            size: (identifier)))
         (preproc_call
-          (preproc_directive)
-          (preproc_arg))))))
+          directive: (preproc_directive)
+          argument: (preproc_arg))))))
 
 ================================================================================
 Primitive-typed variable declarations
@@ -454,10 +454,10 @@ __extension__ typedef struct {
     declarator: (type_identifier)
     (attribute_specifier
       (argument_list
-        (call_expression
+        argument: (call_expression
           function: (identifier)
           arguments: (argument_list
-            (identifier))))))
+            argument: (identifier))))))
   (type_definition
     type: (sized_type_specifier
       type: (primitive_type))
@@ -535,7 +535,7 @@ void * do_stuff(int arg1) {
             declarator: (identifier)))))
     body: (compound_statement
       (return_statement
-        (number_literal)))))
+        expression: (number_literal)))))
 
 ================================================================================
 Function specifiers after types

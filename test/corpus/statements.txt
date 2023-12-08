@@ -62,7 +62,7 @@ T main() {
         right: (identifier)
         body: (compound_statement
           (expression_statement
-            (binary_expression
+            expression: (binary_expression
               left: (identifier)
               right: (identifier)))))
       (for_range_loop
@@ -74,7 +74,7 @@ T main() {
         right: (identifier)
         body: (compound_statement
           (expression_statement
-            (binary_expression
+            expression: (binary_expression
               left: (identifier)
               right: (identifier)))))
       (for_range_loop
@@ -89,7 +89,7 @@ T main() {
           (number_literal))
         body: (compound_statement
           (expression_statement
-            (binary_expression
+            expression: (binary_expression
               left: (identifier)
               right: (identifier)))))
       (for_range_loop
@@ -110,7 +110,7 @@ T main() {
         right: (identifier)
         body: (compound_statement
           (expression_statement
-            (binary_expression
+            expression: (binary_expression
               left: (binary_expression
                 left: (identifier)
                 right: (binary_expression
@@ -132,7 +132,7 @@ T main() {
         right: (identifier)
         body: (compound_statement
           (expression_statement
-            (binary_expression
+            expression: (binary_expression
               left: (binary_expression
                 left: (identifier)
                 right: (binary_expression
@@ -172,11 +172,11 @@ T f() {
                 (type_descriptor
                   type: (type_identifier))))))
         consequence: (return_statement
-          (pointer_expression
+          expression: (pointer_expression
             argument: (identifier)))
         alternative: (else_clause
-          (return_statement
-            (identifier)))))))
+          consequence: (return_statement
+            expression: (identifier)))))))
 
 ================================================================================
 If statements with declarations

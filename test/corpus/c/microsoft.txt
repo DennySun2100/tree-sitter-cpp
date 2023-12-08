@@ -122,35 +122,35 @@ void MyFunction(char * __uptr myValue);
           argument: (identifier))
         body: (compound_statement
           (expression_statement
-            (assignment_expression
+            expression: (assignment_expression
               left: (subscript_expression
                 argument: (identifier)
                 indices: (subscript_argument_list
-                  (identifier)))
+                  argument: (identifier)))
               right: (binary_expression
                 left: (subscript_expression
                   argument: (identifier)
                   indices: (subscript_argument_list
-                    (identifier)))
+                    argument: (identifier)))
                 right: (subscript_expression
                   argument: (identifier)
                   indices: (subscript_argument_list
-                    (identifier))))))
+                    argument: (identifier))))))
           (expression_statement
-            (assignment_expression
+            expression: (assignment_expression
               left: (subscript_expression
                 argument: (identifier)
                 indices: (subscript_argument_list
-                  (identifier)))
+                  argument: (identifier)))
               right: (binary_expression
                 left: (subscript_expression
                   argument: (identifier)
                   indices: (subscript_argument_list
-                    (identifier)))
+                    argument: (identifier)))
                 right: (subscript_expression
                   argument: (identifier)
                   indices: (subscript_argument_list
-                    (identifier))))))))))
+                    argument: (identifier))))))))))
   (declaration
     type: (primitive_type)
     declarator: (function_declarator
