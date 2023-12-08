@@ -136,7 +136,7 @@ module.exports = grammar(C, {
     decltype: $ => seq(
       'decltype',
       '(',
-      $._expression,
+      field('argument', $._expression),
       ')',
     ),
 
@@ -252,7 +252,7 @@ module.exports = grammar(C, {
     alignas_specifier: $ => seq(
       'alignas',
       '(',
-      choice($._expression, $.primitive_type),
+      field('argument', choice($._expression, $.primitive_type)),
       ')',
     ),
 
@@ -267,7 +267,7 @@ module.exports = grammar(C, {
       prec(PREC.CALL, seq(
         'explicit',
         '(',
-        $._expression,
+        field('argument', $._expression),
         ')',
       )),
     ),
@@ -677,7 +677,7 @@ module.exports = grammar(C, {
       optional(
         seq(
           '(',
-          optional($._expression),
+          field('argument', optional($._expression)),
           ')',
         ),
       ),
@@ -798,7 +798,7 @@ module.exports = grammar(C, {
       'concept',
       field('name', $.identifier),
       '=',
-      $._expression,
+      field('argument', $._expression),
       ';',
     ),
 
@@ -900,13 +900,13 @@ module.exports = grammar(C, {
 
     co_return_statement: $ => seq(
       'co_return',
-      optional($._expression),
+      field('argument', optional($._expression)),
       ';',
     ),
 
     co_yield_statement: $ => seq(
       'co_yield',
-      $._expression,
+      field('argument', $._expression),
       ';',
     ),
 
@@ -973,7 +973,7 @@ module.exports = grammar(C, {
 
     subscript_argument_list: $ => seq(
       '[',
-      commaSep(choice($._expression, $.initializer_list)),
+      field('argument', commaSep(choice($._expression, $.initializer_list))),
       ']',
     ),
 
@@ -1010,7 +1010,7 @@ module.exports = grammar(C, {
       optional('::'),
       $._delete_expression_operator,
       // Boost the precedence of the cast_expression to avoid ambiguity with the call_expression
-      choice(prec.dynamic(20, $.cast_expression), $._expression),
+      field('argument', choice(prec.dynamic(20, $.cast_expression), $._expression)),
     ),
 
     _delete_expression_operator: $ => seq(
@@ -1034,7 +1034,7 @@ module.exports = grammar(C, {
     type_requirement: $ => seq('typename', $._class_name),
 
     compound_requirement: $ => seq(
-      '{', $._expression, '}',
+      '{', field('argument', $._expression), '}',
       optional('noexcept'),
       optional($.trailing_return_type),
       ';',
@@ -1070,7 +1070,7 @@ module.exports = grammar(C, {
       $.requires_expression,
 
       // Parenthesized expressions
-      seq('(', $._expression, ')'),
+      seq('(', field('argument', $._expression), ')'),
 
       // conjunction or disjunction of the above
       $.constraint_conjunction,
@@ -1206,7 +1206,7 @@ module.exports = grammar(C, {
     // The compound_statement is added to parse macros taking statements as arguments, e.g. MYFORLOOP(1, 10, i, { foo(i); bar(i); })
     argument_list: $ => seq(
       '(',
-      commaSep(choice(seq(optional('__extension__'), $._expression), $.initializer_list, $.compound_statement)),
+      commaSep(choice(seq(optional('__extension__'), field('argument', $._expression)), $.initializer_list, $.compound_statement)),
       ')',
     ),
 

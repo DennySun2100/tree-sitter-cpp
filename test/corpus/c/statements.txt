@@ -71,7 +71,7 @@ int main() {
         (expression_statement
           (number_literal)))
       (for_statement
-        (declaration
+        (for_declaration
           (primitive_type)
           (init_declarator
             (identifier)

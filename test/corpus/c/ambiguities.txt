@@ -206,7 +206,7 @@ int main() {
       (parameter_list))
     (compound_statement
       (for_statement
-        (declaration
+        (for_declaration
           (type_identifier)
           (init_declarator
             (pointer_declarator

@@ -885,36 +885,36 @@ void f(T...) {}
                   type: (type_identifier))))))))
     declarator: (type_identifier))
   (expression_statement
-    (call_expression
+    expression: (call_expression
       function: (identifier)
       arguments: (argument_list
-        (parameter_pack_expansion
+        argument: (parameter_pack_expansion
           pattern: (pointer_expression
             argument: (identifier))))))
   (comment)
   (expression_statement
-    (call_expression
+    expression: (call_expression
       function: (identifier)
       arguments: (argument_list
-        (identifier)
-        (parameter_pack_expansion
+        argument: (identifier)
+        argument: (parameter_pack_expansion
           pattern: (update_expression
             argument: (identifier))))))
   (comment)
   (expression_statement
-    (call_expression
+    expression: (call_expression
       function: (identifier)
       arguments: (argument_list
-        (parameter_pack_expansion
+        argument: (parameter_pack_expansion
           pattern: (update_expression
             argument: (identifier)))
-        (identifier))))
+        argument: (identifier))))
   (comment)
   (expression_statement
-    (call_expression
+    expression: (call_expression
       function: (identifier)
       arguments: (argument_list
-        (parameter_pack_expansion
+        argument: (parameter_pack_expansion
           pattern: (call_expression
             function: (template_function
               name: (identifier)
@@ -924,19 +924,19 @@ void f(T...) {}
                   type: (type_identifier)
                   declarator: (abstract_pointer_declarator))))
             arguments: (argument_list
-              (pointer_expression
+              argument: (pointer_expression
                 argument: (identifier))))))))
   (comment)
   (expression_statement
-    (call_expression
+    expression: (call_expression
       function: (identifier)
       arguments: (argument_list
-        (parameter_pack_expansion
+        argument: (parameter_pack_expansion
           pattern: (binary_expression
             left: (call_expression
               function: (identifier)
               arguments: (argument_list
-                (parameter_pack_expansion
+                argument: (parameter_pack_expansion
                   pattern: (identifier))))
             right: (identifier))))))
   (comment)
@@ -970,7 +970,7 @@ void f(T...) {}
       value: (initializer_list
         (parameter_pack_expansion
           pattern: (parenthesized_expression
-            (comma_expression
+            expression: (comma_expression
               left: (binary_expression
                 left: (qualified_identifier
                   scope: (namespace_identifier)
@@ -989,10 +989,10 @@ void f(T...) {}
             pattern: (identifier)))
         body: (compound_statement
           (return_statement
-            (call_expression
+            expression: (call_expression
               function: (identifier)
               arguments: (argument_list
-                (parameter_pack_expansion
+                argument: (parameter_pack_expansion
                   pattern: (identifier)))))))))
   (class_declaration
     declarator: (class_specifier
@@ -1017,7 +1017,7 @@ void f(T...) {}
             (field_initializer
               (field_identifier)
               (argument_list
-                (identifier))))
+                argument: (identifier))))
           body: (compound_statement)))))
   (template_declaration
     parameters: (template_parameter_list
@@ -1035,10 +1035,10 @@ void f(T...) {}
                 (identifier))))))
       body: (compound_statement
         (expression_statement
-          (call_expression
+          expression: (call_expression
             function: (identifier)
             arguments: (argument_list
-              (parameter_pack_expansion
+              argument: (parameter_pack_expansion
                 pattern: (call_expression
                   function: (template_function
                     name: (identifier)
@@ -1046,7 +1046,7 @@ void f(T...) {}
                       (type_descriptor
                         type: (type_identifier))))
                   arguments: (argument_list
-                    (identifier))))))))))
+                    argument: (identifier))))))))))
   (function_definition
     type: (primitive_type)
     declarator: (function_declarator
