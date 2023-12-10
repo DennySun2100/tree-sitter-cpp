@@ -1313,14 +1313,14 @@ class Y
             arguments: (template_argument_list
               (type_descriptor
                 type: (primitive_type)))))))
-    (class_specifier
+    declarator: (class_specifier
       name: (type_identifier)
       body: (field_declaration_list)))
   (template_declaration
     parameters: (template_parameter_list
       (optional_type_parameter_declaration
         default_type: (primitive_type)))
-    (class_specifier
+    declarator: (class_specifier
       name: (type_identifier)
       body: (field_declaration_list))))
 
@@ -1375,7 +1375,7 @@ class X
                           value: (initializer_list)))))))
               name: (type_identifier))))
         default_value: (number_literal)))
-    (class_specifier
+    declarator: (class_specifier
       name: (type_identifier)
       body: (field_declaration_list))))
 

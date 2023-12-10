@@ -1023,7 +1023,7 @@ void f(T...) {}
     parameters: (template_parameter_list
       (variadic_type_parameter_declaration
         (type_identifier)))
-    (function_definition
+    declarator: (function_definition
       type: (primitive_type)
       declarator: (function_declarator
         declarator: (identifier)

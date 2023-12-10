@@ -6515,6 +6515,44 @@
     "type": "template_declaration",
     "named": true,
     "fields": {
+      "declarator": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": ";",
+            "named": false
+          },
+          {
+            "type": "_type_specifier",
+            "named": true
+          },
+          {
+            "type": "alias_declaration",
+            "named": true
+          },
+          {
+            "type": "concept_definition",
+            "named": true
+          },
+          {
+            "type": "declaration",
+            "named": true
+          },
+          {
+            "type": "friend_declaration",
+            "named": true
+          },
+          {
+            "type": "function_definition",
+            "named": true
+          },
+          {
+            "type": "template_declaration",
+            "named": true
+          }
+        ]
+      },
       "parameters": {
         "multiple": false,
         "required": true,
@@ -6527,39 +6565,11 @@
       }
     },
     "children": {
-      "multiple": true,
-      "required": true,
+      "multiple": false,
+      "required": false,
       "types": [
         {
-          "type": "_type_specifier",
-          "named": true
-        },
-        {
-          "type": "alias_declaration",
-          "named": true
-        },
-        {
-          "type": "concept_definition",
-          "named": true
-        },
-        {
-          "type": "declaration",
-          "named": true
-        },
-        {
-          "type": "friend_declaration",
-          "named": true
-        },
-        {
-          "type": "function_definition",
-          "named": true
-        },
-        {
           "type": "requires_clause",
-          "named": true
-        },
-        {
-          "type": "template_declaration",
           "named": true
         }
       ]

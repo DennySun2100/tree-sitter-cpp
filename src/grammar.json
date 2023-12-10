@@ -10452,73 +10452,77 @@
           ]
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "_empty_declaration"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "alias_declaration"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "declaration"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "template_declaration"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "function_definition"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "concept_definition"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "friend_declaration"
-            },
-            {
-              "type": "ALIAS",
-              "content": {
+          "type": "FIELD",
+          "name": "declarator",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
                 "type": "SYMBOL",
-                "name": "constructor_or_destructor_declaration"
+                "name": "_empty_declaration"
               },
-              "named": true,
-              "value": "declaration"
-            },
-            {
-              "type": "ALIAS",
-              "content": {
+              {
                 "type": "SYMBOL",
-                "name": "constructor_or_destructor_definition"
+                "name": "alias_declaration"
               },
-              "named": true,
-              "value": "function_definition"
-            },
-            {
-              "type": "ALIAS",
-              "content": {
+              {
                 "type": "SYMBOL",
-                "name": "operator_cast_declaration"
+                "name": "declaration"
               },
-              "named": true,
-              "value": "declaration"
-            },
-            {
-              "type": "ALIAS",
-              "content": {
+              {
                 "type": "SYMBOL",
-                "name": "operator_cast_definition"
+                "name": "template_declaration"
               },
-              "named": true,
-              "value": "function_definition"
-            }
-          ]
+              {
+                "type": "SYMBOL",
+                "name": "function_definition"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "concept_definition"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "friend_declaration"
+              },
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "constructor_or_destructor_declaration"
+                },
+                "named": true,
+                "value": "declaration"
+              },
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "constructor_or_destructor_definition"
+                },
+                "named": true,
+                "value": "function_definition"
+              },
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "operator_cast_declaration"
+                },
+                "named": true,
+                "value": "declaration"
+              },
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "operator_cast_definition"
+                },
+                "named": true,
+                "value": "function_definition"
+              }
+            ]
+          }
         }
       ]
     },

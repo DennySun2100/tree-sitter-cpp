@@ -331,7 +331,7 @@ module.exports = grammar(C, {
       'template',
       field('parameters', $.template_parameter_list),
       optional($.requires_clause),
-      choice(
+      field('declarator', choice(
         $._empty_declaration,
         $.alias_declaration,
         $.declaration,
@@ -343,7 +343,7 @@ module.exports = grammar(C, {
         alias($.constructor_or_destructor_definition, $.function_definition),
         alias($.operator_cast_declaration, $.declaration),
         alias($.operator_cast_definition, $.function_definition),
-      ),
+      )),
     ),
 
     template_instantiation: $ => seq(
