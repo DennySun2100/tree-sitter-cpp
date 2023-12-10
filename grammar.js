@@ -192,7 +192,7 @@ module.exports = grammar(C, {
           optional($.virtual_specifier),
           optional($.base_class_clause),
           field('body', $.field_declaration_list),
-          //optional(';'),
+          // optional(';'),
         ),
       ),
       optional($.attribute_specifier),
