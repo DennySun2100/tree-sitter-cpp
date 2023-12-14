@@ -576,16 +576,17 @@
   {
     "type": "abstract_parenthesized_declarator",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "_abstract_declarator",
-          "named": true
-        }
-      ]
+    "fields": {
+      "declarator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_abstract_declarator",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -733,6 +734,16 @@
           {
             "type": "_expression",
             "named": true
+          }
+        ]
+      },
+      "comma": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
           }
         ]
       }
@@ -991,7 +1002,18 @@
   {
     "type": "attribute_declaration",
     "named": true,
-    "fields": {},
+    "fields": {
+      "comma": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
@@ -1021,23 +1043,36 @@
   {
     "type": "attributed_declarator",
     "named": true,
-    "fields": {},
+    "fields": {
+      "declarator": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "_declarator",
+            "named": true
+          },
+          {
+            "type": "_field_declarator",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "_type_declarator",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
       "types": [
-        {
-          "type": "_declarator",
-          "named": true
-        },
-        {
-          "type": "_field_declarator",
-          "named": true
-        },
-        {
-          "type": "_type_declarator",
-          "named": true
-        },
         {
           "type": "attribute_declaration",
           "named": true
@@ -2138,6 +2173,16 @@
     "type": "declaration",
     "named": true,
     "fields": {
+      "comma": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          }
+        ]
+      },
       "declarator": {
         "multiple": true,
         "required": true,
@@ -2396,24 +2441,25 @@
   {
     "type": "dependent_name",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "template_function",
-          "named": true
-        },
-        {
-          "type": "template_method",
-          "named": true
-        },
-        {
-          "type": "template_type",
-          "named": true
-        }
-      ]
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "template_function",
+            "named": true
+          },
+          {
+            "type": "template_method",
+            "named": true
+          },
+          {
+            "type": "template_type",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -3147,6 +3193,16 @@
     "type": "for_declaration",
     "named": true,
     "fields": {
+      "comma": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          }
+        ]
+      },
       "declarator": {
         "multiple": true,
         "required": true,
@@ -3604,7 +3660,18 @@
   {
     "type": "generic_expression",
     "named": true,
-    "fields": {},
+    "fields": {
+      "comma": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
@@ -3624,6 +3691,16 @@
     "type": "gnu_asm_clobber_list",
     "named": true,
     "fields": {
+      "comma": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          }
+        ]
+      },
       "register": {
         "multiple": true,
         "required": false,
@@ -3710,6 +3787,16 @@
     "type": "gnu_asm_goto_list",
     "named": true,
     "fields": {
+      "comma": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          }
+        ]
+      },
       "label": {
         "multiple": true,
         "required": false,
@@ -3762,6 +3849,16 @@
     "type": "gnu_asm_input_operand_list",
     "named": true,
     "fields": {
+      "comma": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          }
+        ]
+      },
       "operand": {
         "multiple": true,
         "required": false,
@@ -3814,6 +3911,16 @@
     "type": "gnu_asm_output_operand_list",
     "named": true,
     "fields": {
+      "comma": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          }
+        ]
+      },
       "operand": {
         "multiple": true,
         "required": false,
@@ -3947,7 +4054,18 @@
   {
     "type": "initializer_list",
     "named": true,
-    "fields": {},
+    "fields": {
+      "comma": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
@@ -4718,7 +4836,18 @@
   {
     "type": "parameter_list",
     "named": true,
-    "fields": {},
+    "fields": {
+      "comma": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
@@ -4769,23 +4898,30 @@
   {
     "type": "parenthesized_declarator",
     "named": true,
-    "fields": {},
+    "fields": {
+      "declarator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_declarator",
+            "named": true
+          },
+          {
+            "type": "_field_declarator",
+            "named": true
+          },
+          {
+            "type": "_type_declarator",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
-      "multiple": true,
-      "required": true,
+      "multiple": false,
+      "required": false,
       "types": [
-        {
-          "type": "_declarator",
-          "named": true
-        },
-        {
-          "type": "_field_declarator",
-          "named": true
-        },
-        {
-          "type": "_type_declarator",
-          "named": true
-        },
         {
           "type": "ms_declspec_modifier",
           "named": true
@@ -5872,7 +6008,18 @@
   {
     "type": "preproc_params",
     "named": true,
-    "fields": {},
+    "fields": {
+      "comma": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
@@ -7101,6 +7248,16 @@
     "type": "type_definition",
     "named": true,
     "fields": {
+      "comma": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          }
+        ]
+      },
       "declarator": {
         "multiple": true,
         "required": true,
