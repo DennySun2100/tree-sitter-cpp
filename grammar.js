@@ -565,7 +565,7 @@ module.exports = grammar(C, {
 
     friend_declaration: $ => seq(
       'friend',
-      choice(
+      field('declarator', choice(
         $.declaration,
         $.function_definition,
         seq(
@@ -576,7 +576,7 @@ module.exports = grammar(C, {
           )),
           $._class_name, ';',
         ),
-      ),
+      )),
     ),
 
     access_specifier: _ => choice(
@@ -745,18 +745,23 @@ module.exports = grammar(C, {
       ';',
     ),
 
-    _namespace_specifier: $ => seq(
-      optional('inline'),
-      $._namespace_identifier,
+    _namespace_specifier: $ => choice(
+        $.inline_namespace_specifier,
+        $._namespace_identifier,
+    ),
+
+    inline_namespace_specifier: $ => seq(
+      'inline',
+      field('name', $._namespace_identifier),
     ),
 
     nested_namespace_specifier: $ => prec(1, seq(
-      optional($._namespace_specifier),
+      field('scope', optional($._namespace_specifier)),
       '::',
-      choice(
+      field('name', choice(
         $.nested_namespace_specifier,
         $._namespace_specifier,
-      ),
+      )),
     )),
 
     using_declaration: $ => seq(
@@ -1220,9 +1225,9 @@ module.exports = grammar(C, {
       ),
     ),
 
-    dependent_identifier: $ => seq('template', $.template_function),
-    dependent_field_identifier: $ => seq('template', $.template_method),
-    dependent_type_identifier: $ => seq('template', $.template_type),
+    dependent_identifier: $ => seq('template', field('name', $.template_function)),
+    dependent_field_identifier: $ => seq('template', field('name', $.template_method)),
+    dependent_type_identifier: $ => seq('template', field('name', $.template_type)),
 
     _scope_resolution: $ => prec(1, seq(
       field('scope', optional(choice(
