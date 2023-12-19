@@ -1,5 +1,5 @@
 ================================
-declaration specs
+Declaration specs
 ================================
 
 struct __declspec(dllexport) s2
@@ -26,7 +26,7 @@ union __declspec(noinline) u2 {
       body: (field_declaration_list))))
 
 ================================
-pointers
+Pointers
 ================================
 
 struct s2
@@ -47,6 +47,10 @@ void sum2(int n, int * __restrict a, int * __restrict b,
 }
 
 void MyFunction(char * __uptr myValue);
+
+int *base_for_pointer;
+
+typedef int __based(base_for_pointer) * pBasedPtr;
 
 ---
 
@@ -161,10 +165,22 @@ void MyFunction(char * __uptr myValue);
           declarator: (pointer_declarator
             (ms_pointer_modifier
               (ms_unsigned_ptr_modifier))
-            declarator: (identifier)))))))
+            declarator: (identifier))))))
+  (declaration
+    type: (primitive_type)
+    declarator: (pointer_declarator
+      declarator: (identifier)))
+  (type_definition
+    type: (primitive_type)
+    declarator: (pointer_declarator
+      (ms_based_modifier
+        (argument_list
+          argument: (identifier)))
+      declarator: (type_identifier))))
+
 
 ================================
-call modifiers
+Call modifiers
 ================================
 
 __cdecl void mymethod(){
@@ -172,6 +188,22 @@ __cdecl void mymethod(){
 }
 
 __fastcall void mymethod(){
+    return;
+}
+
+__stdcall void mymethod(){
+    return;
+}
+
+__thiscall void mymethod(){
+    return;
+}
+
+__clrcall void mymethod(){
+    return;
+}
+
+__vectorcall void mymethod(){
     return;
 }
 
@@ -193,4 +225,272 @@ __fastcall void mymethod(){
       declarator: (identifier)
       parameters: (parameter_list))
     body: (compound_statement
+      (return_statement)))
+  (function_definition
+    (ms_call_modifier)
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (return_statement)))
+  (function_definition
+    (ms_call_modifier)
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (return_statement)))
+  (function_definition
+    (ms_call_modifier)
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (return_statement)))
+  (function_definition
+    (ms_call_modifier)
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
       (return_statement))))
+
+================================
+SEH exception handling
+================================
+
+int main() {
+    int arg;
+    __try {
+        __try {
+            arg = 1;
+            __leave;
+        } __except (-1) {
+            arg = 2;
+        }
+        __leave;
+        arg = 3;
+    } __finally {
+        printf("arg: %d\n", arg);
+    }
+}
+
+---
+
+(translation_unit
+  (function_definition
+    (primitive_type)
+    (function_declarator
+      (identifier)
+      (parameter_list))
+    (compound_statement
+      (declaration
+        (primitive_type)
+        (identifier))
+      (seh_try_statement
+        (compound_statement
+          (seh_try_statement
+            (compound_statement
+              (expression_statement
+                (assignment_expression
+                  (identifier)
+                  (number_literal)))
+              (seh_leave_statement))
+            (seh_except_clause
+              (parenthesized_expression
+                (number_literal))
+              (compound_statement
+                (expression_statement
+                  (assignment_expression
+                    (identifier)
+                    (number_literal))))))
+          (seh_leave_statement)
+          (expression_statement
+            (assignment_expression
+              (identifier)
+              (number_literal))))
+        (seh_finally_clause
+          (compound_statement
+            (expression_statement
+              (call_expression
+                (identifier)
+                (argument_list
+                  (string_literal
+                    (string_content)
+                    (escape_sequence))
+                  (identifier))))))))))
+
+=============================
+Unicode strings and constants
+=============================
+
+char z = 't';
+wchar_t a = L't';
+char8_t b = u8't';
+char16_t c = u't';
+char32_t d = U't';
+const wchar_t *f = L"text";
+const char8_t *g = u8"text";
+const char16_t *h = u"text";
+const char32_t *i = U"text";
+
+---
+
+(translation_unit
+  (declaration
+    (primitive_type)
+    (init_declarator
+      (identifier)
+      (char_literal
+        (character))))
+  (declaration
+    (type_identifier)
+    (init_declarator
+      (identifier)
+      (char_literal
+        (character))))
+  (declaration
+    (primitive_type)
+    (init_declarator
+      (identifier)
+      (char_literal
+        (character))))
+  (declaration
+    (primitive_type)
+    (init_declarator
+      (identifier)
+      (char_literal
+        (character))))
+  (declaration
+    (primitive_type)
+    (init_declarator
+      (identifier)
+      (char_literal
+        (character))))
+  (declaration
+    (type_qualifier)
+    (type_identifier)
+    (init_declarator
+      (pointer_declarator
+        (identifier))
+      (string_literal
+        (string_content))))
+  (declaration
+    (type_qualifier)
+    (primitive_type)
+    (init_declarator
+      (pointer_declarator
+        (identifier))
+      (string_literal
+        (string_content))))
+  (declaration
+    (type_qualifier)
+    (primitive_type)
+    (init_declarator
+      (pointer_declarator
+        (identifier))
+      (string_literal
+        (string_content))))
+  (declaration
+    (type_qualifier)
+    (primitive_type)
+    (init_declarator
+      (pointer_declarator
+        (identifier))
+      (string_literal
+        (string_content)))))
+
+================================
+Inline specifiers
+================================
+
+inline int zero()
+{
+    return 0;
+}
+
+__inline int one()
+{
+    return 1;
+}
+
+__inline__ int two()
+{
+    return 2;
+}
+
+__forceinline int three()
+{
+    return 3;
+}
+
+---
+
+(translation_unit
+  (function_definition
+    (storage_class_specifier)
+    (primitive_type)
+    (function_declarator
+      (identifier)
+      (parameter_list))
+    (compound_statement
+      (return_statement
+        (number_literal))))
+  (function_definition
+    (storage_class_specifier)
+    (primitive_type)
+    (function_declarator
+      (identifier)
+      (parameter_list))
+    (compound_statement
+      (return_statement
+        (number_literal))))
+  (function_definition
+    (storage_class_specifier)
+    (primitive_type)
+    (function_declarator
+      (identifier)
+      (parameter_list))
+    (compound_statement
+      (return_statement
+        (number_literal))))
+  (function_definition
+    (storage_class_specifier)
+    (primitive_type)
+    (function_declarator
+      (identifier)
+      (parameter_list))
+    (compound_statement
+      (return_statement
+        (number_literal)))))
+
+================================
+Alignof specifiers
+================================
+
+alignof(int);
+
+__alignof(int);
+
+_Alignof(int);
+
+---
+
+(translation_unit
+  (expression_statement
+    (alignof_expression
+      (type_descriptor
+        (primitive_type))))
+  (expression_statement
+    (alignof_expression
+      (type_descriptor
+        (primitive_type))))
+  (expression_statement
+    (alignof_expression
+      (type_descriptor
+        (primitive_type)))))
+

@@ -173,6 +173,19 @@ asm volatile (
       [y] "=r" ((uintptr_t) y)
     : "r2");
 
+int frob(int x)
+{
+  int y;
+  asm goto ("frob %%r5, %1; jc %l[error]; mov (%2), %%r5"
+            : /* No outputs. */
+            : "r"(x), "r"(&y)
+            : "r5", "memory"
+            : error);
+  return y;
+error:
+  return -1;
+}
+
 --------------------------------------------------------------------------------
 
 (translation_unit
@@ -212,7 +225,49 @@ asm volatile (
             value: (identifier))))
       clobbers: (gnu_asm_clobber_list
         register: (string_literal
-          (string_content))))))
+         (string_content)))))
+ (function_definition
+   type: (primitive_type)
+   declarator: (function_declarator
+     declarator: (identifier)
+     parameters: (parameter_list
+       (parameter_declaration
+         type: (primitive_type)
+         declarator: (identifier))))
+   body: (compound_statement
+     (declaration
+       type: (primitive_type)
+       declarator: (identifier))
+     (expression_statement
+       expression: (gnu_asm_expression
+         (gnu_asm_qualifier)
+         assembly_code: (string_literal
+           (string_content))
+         output_operands: (gnu_asm_output_operand_list)
+         (comment)
+         input_operands: (gnu_asm_input_operand_list
+           operand: (gnu_asm_input_operand
+             constraint: (string_literal
+               (string_content))
+             value: (identifier))
+           operand: (gnu_asm_input_operand
+             constraint: (string_literal
+               (string_content))
+             value: (pointer_expression
+               argument: (identifier))))
+         clobbers: (gnu_asm_clobber_list
+           register: (string_literal
+             (string_content))
+           register: (string_literal
+             (string_content)))
+         goto_labels: (gnu_asm_goto_list
+           label: (identifier))))
+     (return_statement
+       expression: (identifier))
+     (labeled_statement
+       label: (statement_identifier)
+       (return_statement
+         expression: (number_literal))))))
 
 ================================================================================
 Function call with compound statement
@@ -436,6 +491,7 @@ int main() {
   -a / b + c * -d;
   a++ - ++b + c-- + --d;
   ++L;
+  a << b | c ^ d >> a;
   }
 
 --------------------------------------------------------------------------------
@@ -471,7 +527,17 @@ int main() {
             argument: (identifier))))
       (expression_statement
         expression: (update_expression
-          argument: (identifier))))))
+          argument: (identifier)))
+      (expression_statement
+        expression: (binary_expression
+          left: (binary_expression
+            left: (identifier)
+            right: (identifier))
+          right: (binary_expression
+            left: (identifier)
+            right: (binary_expression
+              left: (identifier)
+              right: (identifier))))))))
 
 ================================================================================
 The comma operator
@@ -522,6 +588,13 @@ int main() {
   *s++ = 1;
   (*t) = 1;
   a *= ((b!=c) ? d : e);
+  a %= b;
+  a &= ~b;
+  a ^= b<=c;
+  a ^= b>=c;
+  a |= b==c;
+  a >>= b;
+  a <<= b;
 }
 
 --------------------------------------------------------------------------------
@@ -603,7 +676,42 @@ int main() {
                   left: (identifier)
                   right: (identifier)))
               consequence: (identifier)
-              alternative: (identifier))))))))
+              alternative: (identifier)))))
+      (expression_statement
+        expression: (assignment_expression
+          left: (identifier)
+          right: (identifier)))
+      (expression_statement
+        expression: (assignment_expression
+          left: (identifier)
+          right: (unary_expression
+            argument: (identifier))))
+      (expression_statement
+        expression: (assignment_expression
+          left: (identifier)
+          right: (binary_expression
+            left: (identifier)
+            right: (identifier))))
+      (expression_statement
+        expression: (assignment_expression
+          left: (identifier)
+          right: (binary_expression
+            left: (identifier)
+            right: (identifier))))
+      (expression_statement
+        expression: (assignment_expression
+          left: (identifier)
+          right: (binary_expression
+            left: (identifier)
+            right: (identifier))))
+      (expression_statement
+        expression: (assignment_expression
+          left: (identifier)
+          right: (identifier)))
+      (expression_statement
+        expression: (assignment_expression
+          left: (identifier)
+          right: (identifier))))))
 
 ================================================================================
 Pointer operations

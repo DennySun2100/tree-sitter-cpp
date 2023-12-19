@@ -25,24 +25,26 @@ inline namespace A { }
   (comment)
   (namespace_definition
     name: (nested_namespace_specifier
-      (namespace_identifier)
-      (namespace_identifier))
+      scope: (namespace_identifier)
+      name: (namespace_identifier))
     body: (declaration_list))
   (namespace_definition
     name: (nested_namespace_specifier
-      (namespace_identifier)
-      (nested_namespace_specifier
-        (namespace_identifier)
-        (namespace_identifier)))
+      scope: (namespace_identifier)
+      name: (nested_namespace_specifier
+        scope: (namespace_identifier)
+        name: (inline_namespace_specifier
+          name: (namespace_identifier))))
     body: (declaration_list))
   (namespace_definition
     name: (nested_namespace_specifier
-      (namespace_identifier)
-      (nested_namespace_specifier
-        (namespace_identifier)
-        (nested_namespace_specifier
-          (namespace_identifier)
-          (namespace_identifier))))
+      scope: (namespace_identifier)
+      name: (nested_namespace_specifier
+        scope: (namespace_identifier)
+        name: (nested_namespace_specifier
+          scope: (inline_namespace_specifier
+            name: (namespace_identifier))
+          name: (namespace_identifier))))
     body: (declaration_list))
   (namespace_definition
     name: (namespace_identifier)
@@ -67,25 +69,25 @@ namespace literals = std::chono::literals;
   (namespace_alias_definition
     name: (namespace_identifier)
     (nested_namespace_specifier
-      (namespace_identifier)))
+      name: (namespace_identifier)))
   (namespace_alias_definition
     name: (namespace_identifier)
     (nested_namespace_specifier
-      (namespace_identifier)
-      (namespace_identifier)))
+      scope: (namespace_identifier)
+      name: (namespace_identifier)))
   (namespace_alias_definition
     name: (namespace_identifier)
     (nested_namespace_specifier
-      (nested_namespace_specifier
-        (namespace_identifier)
-        (namespace_identifier))))
+      name: (nested_namespace_specifier
+        scope: (namespace_identifier)
+        name: (namespace_identifier))))
   (namespace_alias_definition
     name: (namespace_identifier)
     (nested_namespace_specifier
-      (namespace_identifier)
-      (nested_namespace_specifier
-        (namespace_identifier)
-        (namespace_identifier)))))
+      scope: (namespace_identifier)
+      name: (nested_namespace_specifier
+        scope: (namespace_identifier)
+        name: (namespace_identifier)))))
 
 ================================================================================
 Using declarations
