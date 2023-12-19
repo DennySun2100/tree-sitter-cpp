@@ -1468,3 +1468,64 @@ void f() {
         (number_literal))
       (expression_statement
         (number_literal)))))
+
+================================================================================
+Alternate operators
+================================================================================
+
+unsigned x = a xor b bitand c bitor compl d;
+
+bool y = not a and b or c not_eq d;
+
+void main()
+{
+    z and_eq a;
+    z xor_eq a;
+    z or_eq a;
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (declaration
+    (sized_type_specifier)
+    (init_declarator
+      (identifier)
+      (binary_expression
+        (binary_expression
+          (identifier)
+          (binary_expression
+            (identifier)
+            (identifier)))
+        (unary_expression
+          (identifier)))))
+  (declaration
+    (primitive_type)
+    (init_declarator
+      (identifier)
+      (binary_expression
+        (binary_expression
+          (unary_expression
+            (identifier))
+          (identifier))
+        (binary_expression
+          (identifier)
+          (identifier)))))
+  (function_definition
+    (primitive_type)
+    (function_declarator
+      (identifier)
+      (parameter_list))
+    (compound_statement
+      (expression_statement
+        (assignment_expression
+          (identifier)
+          (identifier)))
+      (expression_statement
+        (assignment_expression
+          (identifier)
+          (identifier)))
+      (expression_statement
+        (assignment_expression
+          (identifier)
+          (identifier))))))
